@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_3" x="0px" y="0px" viewBox="0 0 64 64" style="enable-background:new 0 0 64 64;" xml:space="preserve" width="512px" height="512px" class=""><g><g>
+	<g>
+		<rect x="31" y="1" style="fill:#B58801" width="2" height="8" data-original="#333333" class="" data-old_color="#333333"/>
+	</g>
+	<circle style="fill:#E12129" cx="32" cy="11" r="3" data-original="#C1272D" class="" data-old_color="#C1272D"/>
+	<ellipse style="fill:#F5010A" cx="31" cy="11" rx="2" ry="2.816" data-original="#ED1C24" class="" data-old_color="#ED1C24"/>
+	<g>
+		<path style="fill:#B58801" d="M16.639,59.565l-1.939-0.484L26.03,13.758C26.142,13.312,26.541,13,27,13h10    c0.459,0,0.858,0.312,0.97,0.758L49.23,58.802l-1.939,0.484L36.219,15h-8.438L16.639,59.565z" data-original="#333333" class="" data-old_color="#333333"/>
+	</g>
+	<g>
+		
+			<rect x="13.275" y="47" transform="matrix(0.8321 -0.5547 0.5547 0.8321 -21.6711 24.4252)" style="fill:#B58801" width="32.45" height="2" data-original="#333333" class="" data-old_color="#333333"/>
+	</g>
+	<g>
+		
+			<rect x="33.334" y="16.548" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -9.9788 32.5761)" style="fill:#B58801" width="2" height="23.571" data-original="#333333" class="" data-old_color="#333333"/>
+	</g>
+	<g>
+		
+			<rect x="33.5" y="31.754" transform="matrix(0.5527 -0.8334 0.8334 0.5527 -24.5313 50.2014)" style="fill:#B58801" width="1.999" height="32.398" data-original="#333333" class="" data-old_color="#333333"/>
+	</g>
+	<g>
+		
+			<rect x="17.881" y="27.334" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -11.3457 29.2761)" style="fill:#B58801" width="23.571" height="2" data-original="#333333" class="" data-old_color="#333333"/>
+	</g>
+	<g>
+		<path style="fill:#523D3D" d="M62,18h-2c0-7.72-6.28-14-14-14V2C54.822,2,62,9.178,62,18z" data-original="#999999" class="active-path" data-old_color="#999999"/>
+	</g>
+	<g>
+		<path style="fill:#523D3D" d="M57,18h-2c0-4.963-4.037-9-9-9V7C52.065,7,57,11.935,57,18z" data-original="#999999" class="active-path" data-old_color="#999999"/>
+	</g>
+	<g>
+		<path style="fill:#523D3D" d="M52,18h-2c0-2.206-1.794-4-4-4v-2C49.309,12,52,14.691,52,18z" data-original="#999999" class="active-path" data-old_color="#999999"/>
+	</g>
+	<g>
+		<path style="fill:#523D3D" d="M4,18H2C2,9.178,9.178,2,18,2v2C10.28,4,4,10.28,4,18z" data-original="#999999" class="active-path" data-old_color="#999999"/>
+	</g>
+	<g>
+		<path style="fill:#523D3D" d="M9,18H7c0-6.065,4.935-11,11-11v2C13.037,9,9,13.037,9,18z" data-original="#999999" class="active-path" data-old_color="#999999"/>
+	</g>
+	<g>
+		<path style="fill:#523D3D" d="M14,18h-2c0-3.309,2.691-6,6-6v2C15.794,14,14,15.794,14,18z" data-original="#999999" class="active-path" data-old_color="#999999"/>
+	</g>
+	<g>
+		<rect x="21" y="37" style="fill:#B58801" width="22" height="2" data-original="#333333" class="" data-old_color="#333333"/>
+	</g>
+	<rect x="12" y="58" style="fill:#534741;" width="40" height="4" data-original="#534741" class=""/>
+	<rect x="12" y="60" style="fill:#F17B22" width="40" height="2" data-original="#736357" class="" data-old_color="#736357"/>
+</g></g> </svg>
