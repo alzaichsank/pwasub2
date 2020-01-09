@@ -7,10 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
         let first = deep[0]
         switch (first) {
             case 'standings':
-                RouterStanding(deep[1])
-                break
+            RouterStanding(deep[1])
+            break
             default:
-                RouterError()
+            RouterError()
         }
     } else {
         if (page == '') {
@@ -50,32 +50,26 @@ const route = (page) => {
         M.Sidenav.getInstance($('.sidenav')).close();
         switch (page) {
             case 'home':
-                     // var api = 'https://api.football-data.org/v2/competitions/[id_liga]/matches?status=SCHEDULED&limit=10'
-                     var api = 'https://api.football-data.org/v2/matches'
-                     var token = '153f20017fe647ed8532923d2e3f3929'
-                     var options = {
-                        method: 'get',
-                        headers: {
-                            'X-Auth-Token': token
-                        }
-                    }
-                    // let id_liga = 2014
+            var api = 'https://api.football-data.org/v2/matches'
+            var token = '153f20017fe647ed8532923d2e3f3929'
+            var options = {
+                method: 'get',
+                headers: {
+                    'X-Auth-Token': token
+                }
+            }
+            var getDate = (date) => {
+                let d = new Date(date);
+                let tgl = d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate()
 
-                    var getDate = (date) => {
-                        let d = new Date(date);
-                        let tgl = d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate()
-
-                        return tgl
-                    }
-
-                    var getHours = (date) => {
-                        let d = new Date(date);
-                        let minutes = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()
-                        return d.getHours() + ':' + minutes
-
-                    }
-
-                    var schedule = async() => {
+                return tgl
+            }
+            var getHours = (date) => {
+                let d = new Date(date);
+                let minutes = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()
+                return d.getHours() + ':' + minutes
+            }
+            var schedule = async() => {
                         // let schedule_api = api.replace('[id_liga]', id_liga)
                         // console.log(schedule_api);
                         try {
@@ -83,39 +77,40 @@ const route = (page) => {
                             let data = await fetch_api.json()
 
                             console.log(data);
+                            if(data.length > 0){
+                                let scheduleHTML = ''
 
-                            let scheduleHTML = ''
+                                data.matches.forEach(item => {
+                                    scheduleHTML += `
+                                    <div class="col l6 s12 mb7 center">
+                                    <div class="club-match-header blue darken-1">
+                                    <span style="color: white;">${item.competition.name}</span>
+                                    </div>
+                                    <div class="club-match blue darken-1">
+                                    <div class="home">
+                                    <h5>${item.homeTeam.name}</h5>
+                                    </div>
+                                    <span class="versus">vs</span>
+                                    <div class="away">
+                                    <h5>${item.awayTeam.name}</h5>
+                                    </div>
+                                    </div>
+                                    <div class="club-match-info blue darken-1">
+                                    <span>${getDate(item.utcDate)+ ' '+getHours(item.utcDate)}</span>
+                                    </div>
+                                    </div>
+                                    `
+                                })
 
-                            data.matches.forEach(item => {
-                                scheduleHTML += `
-                                <div class="col l6 s12 mb7 center">
-                                <div class="club-match-header blue darken-1">
-                                <span style="color: white;">${item.competition.name}</span>
-                                </div>
-                                <div class="club-match blue darken-1">
-                                <div class="home">
-                                <h5>${item.homeTeam.name}</h5>
-                                </div>
-                                <span class="versus">vs</span>
-                                <div class="away">
-                                <h5>${item.awayTeam.name}</h5>
-                                </div>
-                                </div>
-                                <div class="club-match-info blue darken-1">
-                                <span>${getDate(item.utcDate)+ ' '+getHours(item.utcDate)}</span>
-                                </div>
-                                </div>
-                                `
-                            })
-
-                            $('.root').html(scheduleHTML)
-                            getTheme()
+                                $('.root').html(scheduleHTML)
+                                getTheme()
+                            }else{
+                                routeEmptySchedule()
+                            }
                         } catch {
                             RouterError(schedule, '')
                         }
-
                     }
-
                     schedule()
                     break
                     case 'standings':
@@ -271,245 +266,175 @@ const route = (page) => {
                             })
                         }
                     })
-break
-case 'teams':
-var getTeamById = async() => {
-    const root = $('.root')
-    const url_params = window.location.href
-
-    const url = new URL(url_params)
-    const getval = url.hash.indexOf('?')
-    const params = new URLSearchParams(url.hash.substr(getval))
-
-    const team_id = params.get('id')
-    console.log(team_id)
-    if (team_id == null) {
-                            //show home of team page
-                            root.html(`Gaada parameter`)
-                        } else {
-                            //show detail team
-                            const api = 'https://api.football-data.org/v2/teams/[team_id]'
-                            const token = '65906dfb1c20470e85c965142a97d3ba'
-                            const options = {
-                                method: 'get',
-                                headers: {
-                                    'X-Auth-Token': token
-                                }
-                            }
-
-                            api_team = api.replace('[team_id]', team_id)
-
-                            try {
-                                let getAPi = await fetch(api_team, options)
-                                let data = await getAPi.json()
-
-                                let table_row = ''
-
-                                data.squad.reverse().forEach(item => {
-                                    table_row += `
-                                    <tr>
-                                    <td>${item.name}</td>
-                                    <td>${item.position}</td>
-                                    <td>${item.nationality}</td>
-                                    </tr>
-                                    `
-                                })
-
-                                let card = `
-                                <div class="row">
-                                <div class="col s12 m6">
-                                <div class="card">
-                                <div class="card-image">
-                                <img class="team-icon" src="${data.crestUrl.replace(/^http:\/\//i, 'https://')}">
-                                <span class="team-icon-title card-title">${data.name}</span>
-                                </div>
-                                <div class="card-content">
-                                <table class="info-club">
-                                <tr>
-                                <td>Nationality</td>
-                                <td>${data.area.name}</td>
-                                </tr>
-                                <tr>
-                                <td>Founded</td>
-                                <td>${data.founded}</td>
-                                </tr>
-                                <tr>
-                                <td>Address</td>
-                                <td>${data.address}</td>
-                                </tr>
-                                <tr>
-                                <td>Club Color</td>
-                                <td>${data.clubColors}</td>
-                                </tr>
-                                <tr>
-                                <td>Website</td>
-                                <td>${data.website}</td>
-                                </tr>
-                                <tr>
-                                <td>Email</td>
-                                <td>${data.email}</td>
-                                </tr>
-                                </table>
-                                </div>
-                                <div class="card-content team-squad hide" style="display: none">
-                                <table class="striped">
-                                <thead>
-                                <tr>
-                                <td>Name</td>
-                                <td>Position</td>
-                                <td>Nationaility</td>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                ${table_row}
-                                </tbody>
-                                </table>
-                                </div>
-                                <div class="card-action">
-                                <a href="#" id="show-squad">show all squad</a>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                `
-                                card += `
-                                <a class="btn-floating waves-effect waves-light btn-large red btn-back"><i class="material-icons circle">arrow_back</i></a>
-                                <div class="floating-bottom"> 
-                                <a class="btn-floating btn-large waves-effect waves-light red scroll-to-top"><i class="material-icons">expand_less</i></a>
-                                </div>
-                                `
-                                root.html(card)
-
-                                $('#show-squad').click((e) => {
-                                    e.preventDefault()
-                                    let elem = $('.team-squad')
-                                    let btn = $('#show-squad')
-
-                                    if (elem.hasClass('hide')) {
-                                        elem.show('slow')
-                                        elem.removeClass('hide')
-                                        btn.text('less all squad')
-                                    } else {
-                                        elem.hide('slow')
-                                        elem.addClass('hide')
-                                        btn.text('show all squad')
-                                    }
-                                })
-
-                                //event when btn back clicked
-                                $('.btn-back').click(() => {
-                                    window.location.hash = '#starredTeam';
-                                    route("starredTeam")
-                                })
-
-                                // event when scroll to top clicked
-                                $('.floating-bottom').click(event => {
-                                    event.preventDefault()
-                                    $("html, body").animate({
-                                        scrollTop: 0
-                                    }, "slow");
-                                    return false;
-                                })
-
-                                //hide button scroll when first loaded
-                                $('.scroll-to-top').hide()
-
-                                //event hide/show when scroll
-                                window.onscroll = function() {
-                                    if (window.scrollY >= 500) {
-                                        $('.scroll-to-top').fadeIn('500')
-                                    } else {
-                                        $('.scroll-to-top').fadeOut('500')
-                                    }
-                                }
-
-                                //set theme now 
-                                getTheme()
-                                console.log(data)
-
-                            } catch (e) {
-                                RouterError(getTeamById, '')
-                            }
-                        }
-                    }
-
-                    getTeamById()
                     break
-                    case 'schedule':
-                    // var api = 'https://api.football-data.org/v2/competitions/[id_liga]/matches?status=SCHEDULED&limit=10'
-                    var api = 'https://api.football-data.org/v2/matches'
-                    var token = '65906dfb1c20470e85c965142a97d3ba'
-                    var options = {
-                        method: 'get',
-                        headers: {
-                            'X-Auth-Token': token
-                        }
+                    case 'teams':
+                    var getTeamById = async() => {
+                        const root = $('.root')
+                        const url_params = window.location.href
+
+                        const url = new URL(url_params)
+                        const getval = url.hash.indexOf('?')
+                        const params = new URLSearchParams(url.hash.substr(getval))
+
+                        const team_id = params.get('id')
+                        console.log(team_id)
+                        if (team_id == null) {
+                                                                //show home of team page
+                                                                root.html(`Gaada parameter`)
+                                                            } else {
+                                                                //show detail team
+                                                                const api = 'https://api.football-data.org/v2/teams/[team_id]'
+                                                                const token = '65906dfb1c20470e85c965142a97d3ba'
+                                                                const options = {
+                                                                    method: 'get',
+                                                                    headers: {
+                                                                        'X-Auth-Token': token
+                                                                    }
+                                                                }
+
+                                                                api_team = api.replace('[team_id]', team_id)
+
+                                                                try {
+                                                                    let getAPi = await fetch(api_team, options)
+                                                                    let data = await getAPi.json()
+
+                                                                    let table_row = ''
+
+                                                                    data.squad.reverse().forEach(item => {
+                                                                        table_row += `
+                                                                        <tr>
+                                                                        <td>${item.name}</td>
+                                                                        <td>${item.position}</td>
+                                                                        <td>${item.nationality}</td>
+                                                                        </tr>
+                                                                        `
+                                                                    })
+
+                                                                    let card = `
+                                                                    <div class="row">
+                                                                    <div class="col s12 m6">
+                                                                    <div class="card">
+                                                                    <div class="card-image">
+                                                                    <img class="team-icon" src="${data.crestUrl.replace(/^http:\/\//i, 'https://')}">
+                                                                    <span class="team-icon-title card-title">${data.name}</span>
+                                                                    </div>
+                                                                    <div class="card-content">
+                                                                    <table class="info-club">
+                                                                    <tr>
+                                                                    <td>Nationality</td>
+                                                                    <td>${data.area.name}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                    <td>Founded</td>
+                                                                    <td>${data.founded}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                    <td>Address</td>
+                                                                    <td>${data.address}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                    <td>Club Color</td>
+                                                                    <td>${data.clubColors}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                    <td>Website</td>
+                                                                    <td>${data.website}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                    <td>Email</td>
+                                                                    <td>${data.email}</td>
+                                                                    </tr>
+                                                                    </table>
+                                                                    </div>
+                                                                    <div class="card-content team-squad hide" style="display: none">
+                                                                    <table class="striped">
+                                                                    <thead>
+                                                                    <tr>
+                                                                    <td>Name</td>
+                                                                    <td>Position</td>
+                                                                    <td>Nationaility</td>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    ${table_row}
+                                                                    </tbody>
+                                                                    </table>
+                                                                    </div>
+                                                                    <div class="card-action">
+                                                                    <a href="#" id="show-squad">show all squad</a>
+                                                                    </div>
+                                                                    </div>
+                                                                    </div>
+                                                                    </div>
+                                                                    `
+                                                                    card += `
+                                                                    <a class="btn-floating waves-effect waves-light btn-large red btn-back"><i class="material-icons circle">arrow_back</i></a>
+                                                                    <div class="floating-bottom"> 
+                                                                    <a class="btn-floating btn-large waves-effect waves-light red scroll-to-top"><i class="material-icons">expand_less</i></a>
+                                                                    </div>
+                                                                    `
+                                                                    root.html(card)
+
+                                                                    $('#show-squad').click((e) => {
+                                                                        e.preventDefault()
+                                                                        let elem = $('.team-squad')
+                                                                        let btn = $('#show-squad')
+
+                                                                        if (elem.hasClass('hide')) {
+                                                                            elem.show('slow')
+                                                                            elem.removeClass('hide')
+                                                                            btn.text('less all squad')
+                                                                        } else {
+                                                                            elem.hide('slow')
+                                                                            elem.addClass('hide')
+                                                                            btn.text('show all squad')
+                                                                        }
+                                                                    })
+
+                                                                    //event when btn back clicked
+                                                                    $('.btn-back').click(() => {
+                                                                        window.location.hash = '#favorite';
+                                                                        route("favorite")
+                                                                    })
+
+                                                                    // event when scroll to top clicked
+                                                                    $('.floating-bottom').click(event => {
+                                                                        event.preventDefault()
+                                                                        $("html, body").animate({
+                                                                            scrollTop: 0
+                                                                        }, "slow");
+                                                                        return false;
+                                                                    })
+
+                                                                    //hide button scroll when first loaded
+                                                                    $('.scroll-to-top').hide()
+
+                                                                    //event hide/show when scroll
+                                                                    window.onscroll = function() {
+                                                                        if (window.scrollY >= 500) {
+                                                                            $('.scroll-to-top').fadeIn('500')
+                                                                        } else {
+                                                                            $('.scroll-to-top').fadeOut('500')
+                                                                        }
+                                                                    }
+
+                                                                    //set theme now 
+                                                                    getTheme()
+                                                                    console.log(data)
+                                                                } catch (e) {
+                                                                    RouterError(getTeamById, '')
+                                                                }
+                                                            }
+                                                        }
+
+                                                        getTeamById()
+                                                        break
+                                                        default:
+                                                        //nothing
+
+                                                    }
+                                                })
                     }
-
-                    // let id_liga = 2014
-
-                    var getDate = (date) => {
-                        let d = new Date(date);
-                        let tgl = d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate()
-
-                        return tgl
-                    }
-
-                    var getHours = (date) => {
-                        let d = new Date(date);
-                        let minutes = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()
-                        return d.getHours() + ':' + minutes
-
-                    }
-
-                    var schedule = async() => {
-                        // let schedule_api = api.replace('[id_liga]', id_liga)
-                        // console.log(schedule_api);
-                        try {
-                            let fetch_api = await fetch(api, options)
-                            let data = await fetch_api.json()
-
-                            console.log(data);
-
-                            let scheduleHTML = ''
-
-                            data.matches.forEach(item => {
-                                scheduleHTML += `
-                                <div class="col l6 s12 mb7 center">
-                                <div class="club-match-header blue darken-1">
-                                <span style="color: white;">${item.competition.name}</span>
-                                </div>
-                                <div class="club-match blue darken-1">
-                                <div class="home">
-                                <h5>${item.homeTeam.name}</h5>
-                                </div>
-                                <span class="versus">vs</span>
-                                <div class="away">
-                                <h5>${item.awayTeam.name}</h5>
-                                </div>
-                                </div>
-                                <div class="club-match-info blue darken-1">
-                                <span>${getDate(item.utcDate)+ ' '+getHours(item.utcDate)}</span>
-                                </div>
-                                </div>
-                                `
-                            })
-
-                            $('.root').html(scheduleHTML)
-                            getTheme()
-                        } catch {
-                            RouterError(schedule, '')
-                        }
-
-                    }
-
-                    schedule()
-                    break
-                    default:
-                    //nothing
-                }
-            })
-}
 
 const colorPlateListener = () => {
     getTheme()
@@ -575,7 +500,7 @@ const setMaterialize = () => {
 }
 
 const RouterStanding = async(params) => {
-console.log("ambil data nih")
+    console.log("ambil data nih")
     let loading = `<div class="col s3 l3 progress">
     <div class="indeterminate blue darken-1"></div>
     </div>
@@ -762,7 +687,18 @@ const routeEmptyStarred = () => {
     <div class="s12 l12 center notif">
     <div><img class="responsive-img signal" src="./assets/img/ui/favorite.png"></div>
     <div><h4>Nothing favorite teams</h4></div>
-    <div>let's add some teams to your favorite list</div>
+    <div>Ayo tambahkan list team favorite mu</div>
+    </div>
+    `
+    $('#body-content').html(emptyMess)
+}
+
+const routeEmptySchedule = () => {
+    let emptyMess = `
+    <div class="s12 l12 center notif">
+    <div><img class="responsive-img signal" src="./assets/img/ui/favorite.png"></div>
+    <div><h4>Jadwal kosong...</h4></div>
+    <div>Tidak ada jadwal pertandingan hari ini</div>
     </div>
     `
     $('#body-content').html(emptyMess)
