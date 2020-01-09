@@ -1,4 +1,4 @@
-const CACHE_NAME = "PWA-Football-v0.01";
+const CACHE_NAME = "PWA-Football-M.S-v0.0.1";
 
 const urlToCache = [
     //index page
@@ -172,6 +172,6 @@ self.addEventListener('push', event => {
     }
 
     event.waitUntil(
-        self.registration.showNotification('Dont forget to watch your favorite team playing', options)
+        self.registration.showNotification('Jangan lupa menyaksikan team kebanggaan kamu', options)
     )
 })
