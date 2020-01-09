@@ -15,10 +15,9 @@ const urlToCache = [
 
     //pages
     "./pages/home.html",
-    "./pages/starredTeam.html",
+    "./pages/favorite.html",
     "./pages/standings.html",
     "./pages/schedule.html",
-    "./pages/stadium.html",
     "./pages/feedback.html",
 
     //asset custom
@@ -26,15 +25,6 @@ const urlToCache = [
     "./assets/js/custom.js",
     "./assets/js/indexDb.js",
     "./assets/js/settings.js",
-
-    //player
-    "./assets/img/player/cr7.jpg",
-    "./assets/img/player/messi.jpg",
-    "./assets/img/player/neymar.jpg",
-    //stadium
-    "./assets/img/stadium/camp_nou.jpg",
-    "./assets/img/stadium/santiago_bernabeu.jpg",
-    "./assets/img/stadium/parc_des_princes.jpg",
     //club
     "./assets/img/club/english/Arsenal-FC-icon.png",
     "./assets/img/club/english/Chelsea-FC-icon.png",
@@ -45,11 +35,11 @@ const urlToCache = [
     "./assets/img/club/spain/Real-Madrid-icon.png",
     "./assets/img/club/spain/Valencia-icon.png",
     //banner
-    "./assets/img/club/banner/bundes.jpg",
-    "./assets/img/club/banner/laliga.jpg",
-    "./assets/img/club/banner/league1.jpg",
-    "./assets/img/club/banner/premier.jpg",
-    "./assets/img/club/banner/seriea.jpg",
+    "./assets/img/club/banner/ic_bundes.jpg",
+    "./assets/img/club/banner/ic_laliga.jpg",
+    "./assets/img/club/banner/ic_league1.jpg",
+    "./assets/img/club/banner/ic_premier.jpg",
+    "./assets/img/club/banner/ic_seriea.jpg",
     //ui
     "./assets/img/ui/img-no-network.svg",
     "./assets/img/ui/thankyou.png",

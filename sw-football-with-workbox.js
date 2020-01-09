@@ -17,10 +17,8 @@ workbox.precaching.precacheAndRoute([
 
     //pages
     { url: "./pages/home.html", revision: '1' },
-    { url: "./pages/starredTeam.html", revision: '1' },
     { url: "./pages/standings.html", revision: '1' },
-    { url: "./pages/schedule.html", revision: '1' },
-    { url: "./pages/stadium.html", revision: '1' },
+    { url: "./pages/favorite.html", revision: '1' },
     { url: "./pages/feedback.html", revision: '1' },
     { url: "./pages/teams.html", revision: '1' },
     { url: "./pages/settings.html", revision: '1' },
@@ -33,15 +31,6 @@ workbox.precaching.precacheAndRoute([
     { url: "./assets/js/teams.js", revision: '1' },
     { url: "./assets/js/starredTeam.js", revision: '1' },
     { url: "./assets/js/schedule.js", revision: '1' },
-
-    //player
-    { url: "./assets/img/player/cr7.jpg", revision: '1' },
-    { url: "./assets/img/player/messi.jpg", revision: '1' },
-    { url: "./assets/img/player/neymar.jpg", revision: '1' },
-    //stadium
-    { url: "./assets/img/stadium/camp_nou.jpg", revision: '1' },
-    { url: "./assets/img/stadium/santiago_bernabeu.jpg", revision: '1' },
-    { url: "./assets/img/stadium/parc_des_princes.jpg", revision: '1' },
     //club
     { url: "./assets/img/club/english/Arsenal-FC-icon.png", revision: '1' },
     { url: "./assets/img/club/english/Chelsea-FC-icon.png", revision: '1' },
@@ -52,11 +41,10 @@ workbox.precaching.precacheAndRoute([
     { url: "./assets/img/club/spain/Real-Madrid-icon.png", revision: '1' },
     { url: "./assets/img/club/spain/Valencia-icon.png", revision: '1' },
     //banner
-    { url: "./assets/img/club/banner/bundes.jpg", revision: '1' },
-    { url: "./assets/img/club/banner/laliga.jpg", revision: '1' },
-    { url: "./assets/img/club/banner/league1.jpg", revision: '1' },
-    { url: "./assets/img/club/banner/premier.jpg", revision: '1' },
-    { url: "./assets/img/club/banner/seriea.jpg", revision: '1' },
+    { url: "./assets/img/club/banner/ic_bundes.jpg", revision: '1' },
+    { url: "./assets/img/club/banner/ic_laliga.jpg", revision: '1' },
+    { url: "./assets/img/club/banner/ic_premier.jpg", revision: '1' },
+    { url: "./assets/img/club/banner/ic_seri_a.jpg", revision: '1' },
     //ui
     { url: "./assets/img/ui/img-no-network.svg", revision: '1' },
     { url: "./assets/img/ui/thankyou.png", revision: '1' },
@@ -69,11 +57,6 @@ workbox.precaching.precacheAndRoute([
     { url: "./assets/img/icon/Icon-512.png", revision: '1' },
     { url: "./assets/img/icon/Icon-72.png", revision: '1' },
     { url: "./assets/img/icon/Icon-96.png", revision: '1' },
-
-    //data json
-    { url: "./assets/json/cristianoronaldo.json", revision: '1' },
-    { url: "./assets/json/leonelmessi.json", revision: '1' },
-    { url: "./assets/json/neymarjr.json", revision: '1' },
 
     //system
     { url: "./sw-reg.js", revision: '1' },

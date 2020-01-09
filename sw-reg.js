@@ -68,38 +68,38 @@ function urlBase64ToUint8Array(base64) {
 
 const dt = new Date()
 
-let hours = dt.getHours()
-let greetings
-let body
+let jam = dt.getHours()
+let judul
+let isi
 
-if(hours < 5){
-    greetings = 'Good Night coming Morning'
-    body = "Prepare your self today"
-}else if(hours < 10){
-    greetings = 'Good Morning'
-    body = 'Its best to start activity'
-}else if(hours < 15){
-    greetings = 'Good Noon'
-    body = "Don't forget to eat guys"
-}else if(hours < 19){
-    greetings = 'Good Afternooon'
-    body = "Lets see the sunset"
-}else if(hours < 21){
-    greetings = 'Good Night'
-    body = "Take a rest after fully working today"
-}else if(hours < 23){
-    greetings = 'Time to sleep guys'
-    body = "Rest your body, reach the dream"
+if(jam < 5){
+    judul = 'Selamat pagi menanti fajar'
+    isi = "Mari mulai hari ini dengan bersyukur"
+}else if(jam < 10){
+    judul = 'Selamat pagi'
+    isi = 'Mari mulai aktifitas dengan semangata'
+}else if(jam < 15){
+    judul = 'Selamat siang'
+    isi = "Sambil pantau jadwal, jangan lupa makan ya"
+}else if(jam < 19){
+    judul = 'Selamat Sore'
+    isi = "Mari akhiri sore hari ini dengan bersantai"
+}else if(jam < 21){
+    judul = 'Selamat Malam'
+    isi = "Mari istirahatkan tubuh ini"
+}else if(jam < 23){
+    judul = 'Mari Tidur'
+    isi = "Tubuh ini butuh istirahat"
 }else{
-    greetings = 'Time to sleep guys'
-    body = "Rest your body, reach the dream"
+    judul = 'Mari Tidur'
+    isi = "Tubuh ini butuh istirahat"
 }
 
-greetings = greetings + ', Football Fans'
+judul = judul + ', Football Mania'
 
-const title = greetings
+const title = judul
 const option2 = {
-    body,
+    isi,
     icon: './assets/img/icon/Icon-512.png',
     badge: './assets/img/icon/Icon-512.png',
     tag: 'greetings'

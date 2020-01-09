@@ -1,5 +1,5 @@
     //Cek indexDb apakah ada ? jika ada lakukan fetch dan isi data ke DOM
-    const indexDb = idb.open('football', 1, db => {
+    const indexDb = idb.open('footballms', 1, db => {
         //db creation
         if (!db.objectStoreNames.contains('account')) {
             //db account
