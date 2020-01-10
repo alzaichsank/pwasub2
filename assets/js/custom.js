@@ -77,7 +77,7 @@ const route = (page) => {
                             let data = await fetch_api.json()
 
                             console.log(data);
-                            if(data.length > 0){
+                            if(data.matches.length > 0){
                                 let scheduleHTML = ''
 
                                 data.matches.forEach(item => {
@@ -113,6 +113,74 @@ const route = (page) => {
                     }
                     schedule()
                     break
+            case 'champions':
+            var api = 'https://api.football-data.org/v2/competitions/CL/matches'
+            var token = '153f20017fe647ed8532923d2e3f3929'
+            var options = {
+                method: 'get',
+                headers: {
+                    'X-Auth-Token': token
+                }
+            }
+            var getDate = (date) => {
+                let d = new Date(date);
+                let tgl = d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate()
+
+                return tgl
+            }
+            var getHours = (date) => {
+                let d = new Date(date);
+                let minutes = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()
+                return d.getHours() + ':' + minutes
+            }
+            var scheduleChampions = async() => {
+                        // let schedule_api = api.replace('[id_liga]', id_liga)
+                        // console.log(schedule_api);
+                        try {
+                            let fetch_api = await fetch(api, options)
+                            let data = await fetch_api.json()
+
+                            console.log(data);
+                            if(data.matches.length > 0){
+                                console.log("masuk gan");
+                                var scheduleChampionsHTML = ``
+
+                                scheduleChampionsHTML += `<div class="center">
+                                <h4>${data.competition.name}<i class="material-icons prefix small">schedule</i></h4>
+                                </div>`
+                                data.matches.reverse().forEach(item => {
+                                    scheduleChampionsHTML +=`
+                                    <div class="col l6 s12 mb7 center">
+                                    <div class="club-match-header blue darken-1">
+                                    <span style="color: white;">${data.competition.name}</span>
+                                    </div>
+                                    <div class="club-match blue darken-1">
+                                    <div class="home">
+                                    <h5>${item.homeTeam.name}</h5>
+                                    </div>
+                                    <span class="versus">vs</span>
+                                    <div class="away">
+                                    <h5>${item.awayTeam.name}</h5>
+                                    </div>
+                                    </div>
+                                    <div class="club-match-info blue darken-1">
+                                    <span>${getDate(item.utcDate)+ ' '+getHours(item.utcDate)}</span>
+                                    </div>
+                                    </div>
+                                    `
+                                })
+                                console.log("masuk gan 2");
+                                $('.root').html(scheduleChampionsHTML)
+                                getTheme()
+                            }else{
+                                routeEmptySchedule()
+                            }
+                        } catch {
+                            RouterError(scheduleChampions, '')
+                        }
+                    }
+                    scheduleChampions()
+                    break
                     case 'standings':
                     $('.standings > div > div > a').each((index, item) => {
                         let uri = $(item).attr('href').substr(11)
@@ -135,11 +203,11 @@ const route = (page) => {
                         <div><img class="responsive-img signal" src="./assets/img/ui/thankyou.png"></div>
                         <div><span>we hope can be better</span></div><br><br>
                         <div class="center">
-                        <button class="btn waves-effect waves-light round" onclick="route('s')"><i class="material-icons">arrow_back</i></button>
+                        <button class="btn waves-effect waves-light round" onclick="route('feedback')"><i class="material-icons">arrow_back</i></button>
                         </div>
                         </div>`
                         let errMessage = `<div class="s12 l12 center notif">
-                        <div><img class="responsive-img signal" src="./assets/img/ui/signal.svg"></div>
+                        <div><img class="responsive-img signal" src="./assets/img/ui/img-no-network.svg"></div>
                         <div><h3>no network</h3></div>
                         <div><span>Please check your network connectivity</span></div>
                         </div>`
@@ -147,9 +215,10 @@ const route = (page) => {
                         container.html(loading)
                         $.ajax({
                             method: 'post',
-                            url: 'https://api.kangkode.site/v1/feedback_send',
+                            url: 'http://sendfeedback.codehopedevloper.com/',
                             data: {
-                                email: email,
+                                sender: email,
+                                subject: "feedback",
                                 message: message
                             },
                             success: res => {
@@ -187,7 +256,7 @@ const route = (page) => {
                             let body = `<div><center><h4>My Favorite Teams</h4></center></div>`
                             res.forEach(item => {
                                 body += `
-                                <div class="">
+                                <div data-id="${item.team_id}" class="team-info">
                                 <div class="col s12 mt-3">
                                 <div class="card horizontal savedTeam">
                                 <a href="#!" data-id="${item.team_id}" data-name="${item.team_name}" class="starred checked"><i class="small material-icons circle">grade</i></a>
