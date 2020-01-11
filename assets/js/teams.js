@@ -14,7 +14,7 @@ var getTeamById = async() => {
     } else {
         //show detail team
         const api = 'https://api.football-data.org/v2/teams/[team_id]'
-        const token = '65906dfb1c20470e85c965142a97d3ba'
+        const token = '153f20017fe647ed8532923d2e3f3929'
         const options = {
             method: 'get',
             headers: {
@@ -123,8 +123,8 @@ var getTeamById = async() => {
 
             //event when btn back clicked
             $('.btn-back').click(() => {
-                window.location.hash = '#starredTeam';
-                route("starredTeam")
+                window.location.hash = '#favorite';
+                route("favorite")
             })
 
             // event when scroll to top clicked

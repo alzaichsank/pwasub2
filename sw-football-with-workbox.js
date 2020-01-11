@@ -29,17 +29,8 @@ workbox.precaching.precacheAndRoute([
     { url: "./assets/js/indexDb.js", revision: '1' },
     { url: "./assets/js/settings.js", revision: '1' },
     { url: "./assets/js/teams.js", revision: '1' },
-    { url: "./assets/js/starredTeam.js", revision: '1' },
+    { url: "./assets/js/favorite.js", revision: '1' },
     { url: "./assets/js/schedule.js", revision: '1' },
-    //club
-    { url: "./assets/img/club/english/Arsenal-FC-icon.png", revision: '1' },
-    { url: "./assets/img/club/english/Chelsea-FC-icon.png", revision: '1' },
-    { url: "./assets/img/club/english/Tottenham-Hotspur-icon.png", revision: '1' },
-    { url: "./assets/img/club/spain/Atletico-Madrid-icon.png", revision: '1' },
-    { url: "./assets/img/club/spain/Athletic-Bilbao-icon.png", revision: '1' },
-    { url: "./assets/img/club/spain/FC-Barcelona-icon.png", revision: '1' },
-    { url: "./assets/img/club/spain/Real-Madrid-icon.png", revision: '1' },
-    { url: "./assets/img/club/spain/Valencia-icon.png", revision: '1' },
     //banner
     { url: "./assets/img/club/banner/ic_bundes.jpg", revision: '1' },
     { url: "./assets/img/club/banner/ic_laliga.jpg", revision: '1' },
@@ -57,7 +48,6 @@ workbox.precaching.precacheAndRoute([
     { url: "./assets/img/icon/Icon-512.png", revision: '1' },
     { url: "./assets/img/icon/Icon-72.png", revision: '1' },
     { url: "./assets/img/icon/Icon-96.png", revision: '1' },
-
     //system
     { url: "./sw-reg.js", revision: '1' },
     { url: "./sw-football-with-workbox.js", revision: '1' },
@@ -121,7 +111,7 @@ self.addEventListener('push', event => {
 
     const options = {
         body,
-        icon: '/img/icon-512x512.png',
+        icon: '/img/Icon-512x512.png',
         vibrate: [100, 50, 100],
         data: {
             dateOfArrival: Date.now(),

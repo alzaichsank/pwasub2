@@ -249,23 +249,23 @@ const route = (page) => {
                     $('#nickname,#name').characterCounter()
                     break
                     case 'favorite':
-                    getStarredTeam().then(res => {
+                    getFavorite().then(res => {
                         if (res.length == 0) {
-                            routeEmptyStarred()
+                            routeEmptyFavorite()
                         } else {
                             let body = `<div><center><h4>My Favorite Teams</h4></center></div>`
                             res.forEach(item => {
                                 body += `
-                                <div data-id="${item.team_id}" class="team-info">
+                                <div data-id="${item.team_id}">
                                 <div class="col s12 mt-3">
                                 <div class="card horizontal savedTeam">
-                                <a href="#!" data-id="${item.team_id}" data-name="${item.team_name}" class="starred checked"><i class="small material-icons circle">grade</i></a>
+                                <a href="#!" data-id="${item.team_id}" data-name="${item.team_name}" class="favorite checked"><i class="small material-icons circle">grade</i></a>
                                 <div class="card-image icon-club">
                                 <a href="#" data-id="${item.team_id}" class="team-info">
                                 <img alt="club ${item.team_path_icon}" onerror="this.src='./assets/img/icon/Icon-144.png'" src="./assets/img/icon/Icon-144.png" class="icon-club lazyload" data-src="${item.team_path_icon.replace(/^http:\/\//i, 'https://')}">
                                 </a>
                                 </div>
-                                <div class="card-stacked">
+                                <div class="card-stacked" data-id="${item.team_id}">
                                 <div class="card-content center">
                                 <h4>${item.team_name}</h4>
                                 </div>
@@ -287,7 +287,16 @@ const route = (page) => {
                                 })
                             })
 
-                            $('.starred').each(function() {
+                            $('.card-stacked').each(function() {
+                                let team_id = $(this).data('id')
+                                $(this).click(function(e) {
+                                    window.location.hash = '#teams?id=' + team_id;
+                                    e.preventDefault()
+                                    route('teams')
+                                })
+                            })
+
+                            $('.favorite').each(function() {
                                 let elem = $(this)
                                 let id = elem.data('id')
                                 let name = elem.data('name')
@@ -301,9 +310,9 @@ const route = (page) => {
 
                                 elem.click(function(e) {
                                     e.preventDefault()
-                                    let isStarred = elem.hasClass('checked')
+                                    let isFavorite = elem.hasClass('checked')
 
-                                    if (!isStarred) {
+                                    if (!isFavorite) {
                                         elem.addClass('checked')
                                     } else {
                                         var toastHTML = '<span>Deleted</span><button class="btn-flat toast-action">Undo</button>';
@@ -316,10 +325,10 @@ const route = (page) => {
                                         card.hide("slow")
 
                                         let doRemove = setTimeout(() => {
-                                            setStarredTeam(id, data)
+                                            setFavorite(id, data)
                                             card.remove()
                                             if ($('div.savedTeam').length == 0) {
-                                                routeEmptyStarred()
+                                                routeEmptyFavorite()
                                             }
                                         }, 3000)
 
@@ -353,7 +362,7 @@ const route = (page) => {
                                                             } else {
                                                                 //show detail team
                                                                 const api = 'https://api.football-data.org/v2/teams/[team_id]'
-                                                                const token = '65906dfb1c20470e85c965142a97d3ba'
+                                                                const token = '153f20017fe647ed8532923d2e3f3929'
                                                                 const options = {
                                                                     method: 'get',
                                                                     headers: {
@@ -605,15 +614,15 @@ const RouterStanding = async(params) => {
         //make empty
         let content = ``
 
-        let starred = await getStarredTeam()
+        let favorite = await getFavorite()
 
-        //id starred team in array
+        //id Favorite team in array
         table.forEach(item => {
-            //if item.team.id in array of id starred, checked is true
+            //if item.team.id in array of id Favorite, checked is true
             let checked = ''
 
-            for (let i in starred) {
-                if (starred[i].team_id == item.team.id) {
+            for (let i in favorite) {
+                if (favorite[i].team_id == item.team.id) {
                     checked = 'checked'
                     break
                 }
@@ -623,7 +632,7 @@ const RouterStanding = async(params) => {
             <div class="col s12 m7">
             <h4 class="header">${item.position+". "+item.team.name}</h4>
             <div class="card horizontal">
-            <a href="#!" data-id="${item.team.id}" data-url="${item.team.crestUrl.replace(/^http:\/\//i, 'https://')}" data-name="${item.team.name}" class="starred ${checked}"><i class="small material-icons circle">grade</i></a>
+            <a href="#!" data-id="${item.team.id}" data-url="${item.team.crestUrl.replace(/^http:\/\//i, 'https://')}" data-name="${item.team.name}" class="favorite ${checked}"><i class="small material-icons circle">grade</i></a>
             <div class="card-image icon-club">
             <img alt="club ${item.team.name}" onerror="this.src='./assets/img/icon/Icon-144.png'" src="./assets/img/icon/Icon-144.png" class="icon-club lazyload" data-src="${item.team.crestUrl.replace(/^http:\/\//i, 'https://')}">
             </div>
@@ -673,8 +682,8 @@ const RouterStanding = async(params) => {
             `
             document.querySelector('#body-content').innerHTML = content
         }).then(() => {
-            //event when starred
-            $('.starred').each(function() {
+            //event when Favorite
+            $('.favorite').each(function() {
                 let elem = $(this)
                 let id = elem.data('id')
                 let name = elem.data('name')
@@ -688,15 +697,15 @@ const RouterStanding = async(params) => {
 
                 elem.click(function(e) {
                     e.preventDefault()
-                    setStarredTeam(id, data)
-                    let isStarred = elem.hasClass('checked')
+                    setFavorite(id, data)
+                    let isFavorite = elem.hasClass('checked')
 
                     let message = ''
-                    if (!isStarred) {
-                        message = data.name + " has been starred"
+                    if (!isFavorite) {
+                        message = data.name + " has been favorite"
                         elem.addClass('checked')
                     } else {
-                        message = data.name + " has been unstarred"
+                        message = data.name + " has been unfavorite"
                         elem.removeClass('checked')
                     }
 
@@ -751,7 +760,7 @@ const RouterError = (callback, params) => {
     console.log("no internet connection")
 }
 
-const routeEmptyStarred = () => {
+const routeEmptyFavorite = () => {
     let emptyMess = `
     <div class="s12 l12 center notif">
     <div><img class="responsive-img signal" src="./assets/img/ui/favorite.png"></div>

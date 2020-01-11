@@ -1,6 +1,6 @@
 // var api = 'https://api.football-data.org/v2/competitions/[id_liga]/matches?status=SCHEDULED&limit=10'
 var api = 'https://api.football-data.org/v2/matches'
-var token = '65906dfb1c20470e85c965142a97d3ba'
+var token = '153f20017fe647ed8532923d2e3f3929'
 var options = {
     method: 'get',
     headers: {

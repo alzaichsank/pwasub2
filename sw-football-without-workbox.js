@@ -25,15 +25,6 @@ const urlToCache = [
     "./assets/js/custom.js",
     "./assets/js/indexDb.js",
     "./assets/js/settings.js",
-    //club
-    "./assets/img/club/english/Arsenal-FC-icon.png",
-    "./assets/img/club/english/Chelsea-FC-icon.png",
-    "./assets/img/club/english/Tottenham-Hotspur-icon.png",
-    "./assets/img/club/spain/Athletic-Bilbao-icon.png",
-    "./assets/img/club/spain/Atletico-Madrid-icon.png",
-    "./assets/img/club/spain/FC-Barcelona-icon.png",
-    "./assets/img/club/spain/Real-Madrid-icon.png",
-    "./assets/img/club/spain/Valencia-icon.png",
     //banner
     "./assets/img/club/banner/ic_bundes.jpg",
     "./assets/img/club/banner/ic_laliga.jpg",
@@ -45,22 +36,16 @@ const urlToCache = [
     "./assets/img/ui/thankyou.png",
     "./assets/img/ui/favorite.png",
     //icon
-    "./assets/img/icon/Icon-144.png",
-    "./assets/img/icon/Icon-192.png",
-    "./assets/img/icon/Icon-36.png",
-    "./assets/img/icon/Icon-48.png",
     "./assets/img/icon/Icon-512.png",
-    "./assets/img/icon/Icon-72.png",
+    "./assets/img/icon/Icon-192.png",
+    "./assets/img/icon/Icon-144.png",
     "./assets/img/icon/Icon-96.png",
-
-    //data json
-    "./assets/json/cristianoronaldo.json",
-    "./assets/json/leonelmessi.json",
-    "./assets/json/neymarjr.json",
-
+    "./assets/img/icon/Icon-72.png",
+    "./assets/img/icon/Icon-48.png",
+    "./assets/img/icon/Icon-36.png",
+    
     //web info
     "./manifest.json",
-
     //system
     "./sw-reg.js",
     "./sw-football.js",
@@ -163,7 +148,7 @@ self.addEventListener('push', event => {
 
     const options = {
         body,
-        icon: '/img/icon-512x512.png',
+        icon: '/img/Icon-512x512.png',
         vibrate: [100, 50, 100],
         data: {
             dateOfArrival: Date.now(),

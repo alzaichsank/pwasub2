@@ -32,7 +32,7 @@ body {
     right: 1em;
 }
 
-.starred {
+.favorite {
     position: absolute;
     top: 1em;
     right: 1em;
@@ -40,7 +40,7 @@ body {
     z-index: 1;
 }
 
-.starred.checked {
+.favorite.checked {
     color: #ffd700;
 }
 

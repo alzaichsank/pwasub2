@@ -14,15 +14,15 @@
             account.createIndex('theme', 'theme')
         }
 
-        if (!db.objectStoreNames.contains('starredTeam')) {
-            //db starred account
-            const starredTeam = db.createObjectStore('starredTeam', {
+        if (!db.objectStoreNames.contains('favorite')) {
+            //db Favorite account
+            const favorite = db.createObjectStore('favorite', {
                 keyPath: 'team_id',
                 autoIncrement: !1
             })
 
-            starredTeam.createIndex('team_id', 'id_team')
-            starredTeam.createIndex('team_name', 'team_name')
+            favorite.createIndex('team_id', 'id_team')
+            favorite.createIndex('team_name', 'team_name')
         }
 
     })
@@ -204,10 +204,10 @@
         })
     }
 
-    const setStarredTeam = (id, data) => {
+    const setFavorite = (id, data) => {
         indexDb.then(async db => {
-            const tx = db.transaction('starredTeam', 'readwrite')
-            const st = tx.objectStore('starredTeam')
+            const tx = db.transaction('favorite', 'readwrite')
+            const st = tx.objectStore('favorite')
 
             let team = {
                 team_id: id,
@@ -219,10 +219,10 @@
 
             if (isExist == undefined) {
                 st.put(team)
-                return data.name + " has been starred"
+                return data.name + " has been favorite"
             } else {
                 st.delete(id)
-                return data.name + " has been unstarred"
+                return data.name + " has been unfavorite"
             }
 
         }).then(res => {
@@ -230,11 +230,11 @@
         })
     }
 
-    const getStarredTeam = () => {
+    const getFavorite = () => {
         return new Promise(resolve => {
             indexDb.then(db => {
-                const tx = db.transaction('starredTeam', 'readonly')
-                const st = tx.objectStore('starredTeam')
+                const tx = db.transaction('favorite', 'readonly')
+                const st = tx.objectStore('favorite')
 
                 return st.getAll()
             }).then(res => {

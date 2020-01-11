@@ -1,29 +1,32 @@
 const webPush = require('web-push')
 
 const vapidKeys = {
-	publicKey: 'BBJ51slZXoZss2hxV_7pkdKAjZHFVkHjwNV3NfO1-T19OvaqeWgb8_SwSZCfjB5wNtT03IG49n4tt4jkqxCN0u0',
-	privateKey: 'BBqlJsR2aK39V4eo-wwZGYFFfuZS2MsNZrgfBKo_UTw'
+	publicKey: 'BE11CIpUkCknNQS5Gdsu6jd1c4U-hsmrs1W8Evu5SQaOld_1AiLrx6DKl2dIzBwn2LSfM0M4QfntAy04yUmqhRA',
+	privateKey: 'Z_Ei4XF0xHtDN3kJ2PXTxc7l8YI_Yeq6oKQN8pZQr3U'
 }
 
-const pushSubscription = {
-	endpoint: 'https://fcm.googleapis.com/fcm/send/fCtnEjgADgY:APA91bGaFTkKhfTxF4-r5-bsRFUMLMOHqIsa0hwYZwIgalJV4iF9C-OqlBLVM6bryX8mjnBNLn86ZKIsCXtbRhR6H2h52_2fQCl3HwZxWdydIeOLVg7HKKUjtwid-rIWGbDbj9doqYV3',
+webPush.setVapidDetails(
+	'mailto:kuroalza@gmail.com',
+	vapidKeys.publicKey,
+	vapidKeys.privateKey
+	)
+
+var pushSubscription = {
+	endpoint: 'https://fcm.googleapis.com/fcm/send/eT0MqDpPiqI:APA91bEdgKdG6m5d5sjg0zCf7P8dvRPqmttkvmAxwFCgBBM_ha1d1oy1CN2OAL4yNKJMzbu-Xp3siKHv5H6_TqxDoP6eLiJ2jSiQMz5cNkx2_aOq4ReqtPv7IaHeRkO7oGiuHaidcrwS',
 	keys: {
-		p256dh: 'BInAbcs1VTL1hR4op8dgtu3CUs5gL/zn3q465ry6XwCZijo99AsMQIn48baZlIHIURwh6H9q8f9qQnzPjvpSA8o=',
-		auth: 'nJaPw1vTcOcWZvupx8ECiA=='
+		p256dh: 'BLoWC/dIhYciBb9MEWTpZFtwrIb6RDE+eLXahTg11U7HwI1mISe6oMp4sfo9eLyoLsyWcXn4u3y5WX7eejGn4Fw=',
+		auth: 'GeMw0PDEH5iSxT40vGqT2A=='
 	}
 }
 
-let payload = "Today, Real Madrid vs Barcelona"
+var payload = "Jadwal tebaru sudah ada , Ayo cek sekarang!!"
 
-let options = {
+var options = {
 	gcmAPIKey: '807511394615',
 	TTL: 60
 }
 
-webPush.setVapidDetails(
-	'mailto:alzarf77@gmail.com',
-	vapidKeys.publicKey,
-	vapidKeys.privateKey
-)
-
-webPush.sendNotification(pushSubscription,payload,options)
+webPush.sendNotification(
+	pushSubscription,
+	payload,
+	options)

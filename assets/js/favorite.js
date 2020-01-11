@@ -1,6 +1,6 @@
-getStarredTeam().then(res => {
+getFavorite().then(res => {
     if (res.length == 0) {
-        routeEmptyStarred()
+        routeEmptyFavorite()
     } else {
         let body = `<div><center><h4>My Favorite Teams</h4></center></div>`
         res.forEach(item => {
@@ -8,7 +8,7 @@ getStarredTeam().then(res => {
 				<div class="">
 					<div class="col s12 mt-3">
 						<div class="card horizontal savedTeam">
-							<a href="#!" data-id="${item.team_id}" data-name="${item.team_name}" class="starred checked"><i class="small material-icons circle">grade</i></a>
+							<a href="#!" data-id="${item.team_id}" data-name="${item.team_name}" class="favorite checked"><i class="small material-icons circle">grade</i></a>
 							<div class="card-image icon-club">
                                 <a href="#" data-id="${item.team_id}" class="team-info">
                                     <img alt="club ${item.team_path_icon}" onerror="this.src='./assets/img/icon/Icon-144.png'" src="./assets/img/icon/Icon-144.png" class="icon-club lazyload" data-src="${item.team_path_icon.replace(/^http:\/\//i, 'https://')}">
@@ -36,7 +36,7 @@ getStarredTeam().then(res => {
             })
         })
 
-        $('.starred').each(function() {
+        $('.favorite').each(function() {
             let elem = $(this)
             let id = elem.data('id')
             let name = elem.data('name')
@@ -50,9 +50,9 @@ getStarredTeam().then(res => {
 
             elem.click(function(e) {
                 e.preventDefault()
-                let isStarred = elem.hasClass('checked')
+                let isFavorite = elem.hasClass('checked')
 
-                if (!isStarred) {
+                if (!isFavorite) {
                     elem.addClass('checked')
                 } else {
                     var toastHTML = '<span>Deleted</span><button class="btn-flat toast-action">Undo</button>';
@@ -65,10 +65,10 @@ getStarredTeam().then(res => {
                     card.hide("slow")
 
                     let doRemove = setTimeout(() => {
-                        setStarredTeam(id, data)
+                        setFavoriteTeam(id, data)
                         card.remove()
                         if ($('div.savedTeam').length == 0) {
-                            routeEmptyStarred()
+                            routeEmptyFavorite()
                         }
                     }, 3000)
 
