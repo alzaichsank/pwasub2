@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     var page = window.location.hash.substr(1);
-    let path = page.split('/')
+    var path = page.split('/')
     if (path.length > 1 && path[1] != '') {
-        let first = path[0]
+        var first = path[0]
         switch (first) {
             case 'table':
             RouterTable(path[1])
@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     setMaterialize()
     navListener()
-    colorPlateListener()
 });
 
 
@@ -37,7 +36,6 @@ const route = (page) => {
         $('#body-content').html(res.status)
     })
     .then(() => {
-        getTheme()
         M.Sidenav.getInstance($('.sidenav')).close();
         switch (page) {
             case 'home':
@@ -50,24 +48,24 @@ const route = (page) => {
                     }
                 }
                 var getDate = (date) => {
-                    let d = new Date(date);
-                    let tgl = d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate()
+                    var d = new Date(date);
+                    var tgl = d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate()
 
                     return tgl
                 }
                 var getHours = (date) => {
-                    let d = new Date(date);
-                    let minutes = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()
+                    var d = new Date(date);
+                    var minutes = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()
                     return d.getHours() + ':' + minutes
                 }
                 var home = async() => {
                             try {
-                                let fetch_api = await fetch(api, options)
-                                let data = await fetch_api.json()
+                                var fetch_api = await fetch(api, options)
+                                var data = await fetch_api.json()
 
                                 console.log(data);
                                 if(data.matches.length > 0){
-                                    let homeBody = ''
+                                    var homeBody = ''
 
                                     data.matches.forEach(item => {
                                         homeBody += `
@@ -82,7 +80,6 @@ const route = (page) => {
                                     })
 
                                     $('.root').html(homeBody)
-                                    getTheme()
                                 }else{
                                     routeEmptyHome()
                                 }
@@ -102,20 +99,20 @@ const route = (page) => {
                     }
                 }
                 var getDate = (date) => {
-                    let d = new Date(date);
-                    let tgl = d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate()
+                    var d = new Date(date);
+                    var tgl = d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate()
 
                     return tgl
                 }
                 var getHours = (date) => {
-                    let d = new Date(date);
-                    let minutes = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()
+                    var d = new Date(date);
+                    var minutes = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()
                     return d.getHours() + ':' + minutes
                 }
                 var champions = async() => {
                             try {
-                                let fetch_api = await fetch(api, options)
-                                let data = await fetch_api.json()
+                                var fetch_api = await fetch(api, options)
+                                var data = await fetch_api.json()
 
                                 console.log(data);
                                 if(data.matches.length > 0){
@@ -139,7 +136,6 @@ const route = (page) => {
                                     })
                                     console.log("masuk gan 2");
                                     $('.root').html(championsHTML)
-                                    getTheme()
                                 }else{
                                     routeEmptySchedule()
                                 }
@@ -151,7 +147,7 @@ const route = (page) => {
             break
             case 'table':
                 $('.table > div > div > a').each((index, item) => {
-                        let uri = $(item).attr('href').substr(7)
+                        var uri = $(item).attr('href').substr(7)
                         $(item).click(() => {
                             RouterTable(uri)
                         })
@@ -160,20 +156,20 @@ const route = (page) => {
             case 'feedback':
                 $('.feedback-send').click(() => {
 
-                    let email = $('#email').val()
-                    let message = $('#message').val()
-                    let container = $('#body-content')
-                    let loading = `<div class="progress">
+                    var email = $('#email').val()
+                    var message = $('#message').val()
+                    var container = $('#body-content')
+                    var loading = `<div class="progress">
                     <div class="indeterminate"></div>
                     </div>`
-                    let thanks = `<div class="s12 l12 center notif">
+                    var thanks = `<div class="s12 l12 center notif">
                     <div><img class="responsive-img signal" src="./assets/img/ui/thankyou.png"></div>
                     <div><span>we hope can be better</span></div><br><br>
                     <div class="center">
                     <button class="btn waves-effect waves-light round" onclick="route('feedback')"><i class="material-icons">arrow_back</i></button>
                     </div>
                     </div>`
-                    let errMessage = `<div class="s12 l12 center notif">
+                    var errMessage = `<div class="s12 l12 center notif">
                     <div><img class="responsive-img signal" src="./assets/img/ui/img-no-network.svg"></div>
                     <div><h3>no network</h3></div>
                     <div><span>Please check your network connectivity</span></div>
@@ -202,33 +198,76 @@ const route = (page) => {
                         if (res.length == 0) {
                             routeEmptyFavorite()
                         } else {
-                            let body = `<div><center><h5>My Favorite Teams</h5></center></div>`
+                            var body = `<div><center><h4>Tim Favorite</h4></center></div>`
                             res.forEach(item => {
                                 body += `
-                                <div data-id="${item.team_id}">
-                                <div class="col s12 mt-3">
-                                <div class="card horizontal savedTeam">
-                                <a href="#!" data-id="${item.team_id}" data-name="${item.team_name}" class="favorite checked"><i class="small material-icons circle">grade</i></a>
-                                <div class="card-image icon-club">
+                        <div class="col s12 m12">
+                        <div class="card horizontal favteam">
+                            <a href="#!" 
+                            data-id="${item.team_id}" 
+                            data-url="${item.team_path_icon}" 
+                            data-name="${item.team_name}"
+                            data-played="${item.team_played}" 
+                            data-won="${item.team_won}" 
+                            data-draw="${item.team_draw}"
+                            data-lost="${item.team_lost}" 
+                            data-goal="${item.team_goal}" 
+                            data-gagainst="${item.team_gagainst}" 
+                            data-difference="${item.team_difference}" 
+                            data-points="${item.team_points}"  
+                            class="favorite checked"><i class="small material-icons circle">grade</i></a>
+                            <div class="card-image icon-table">
                                 <a href="#" data-id="${item.team_id}" class="team-info">
-                                <img alt="club ${item.team_path_icon}" onerror="this.src='./assets/img/icon/Icon-144.png'" src="./assets/img/icon/Icon-144.png" class="icon-club lazyload" data-src="${item.team_path_icon.replace(/^http:\/\//i, 'https://')}">
+                                    <img alt="club ${item.team_path_icon}" onerror="this.src='./assets/img/icon/Icon-144.png'" src="./assets/img/icon/Icon-144.png" class="team-icon lazyload" data-src="${item.team_path_icon.replace(/^http:\/\//i, 'https://')}">
                                 </a>
-                                </div>
-                                <div class="card-stacked" data-id="${item.team_id}">
+                            </div>
+                            <div class="card-stacked" data-id="${item.team_id}">
                                 <div class="card-content center">
-                                <h4>${item.team_name}</h4>
+                                    <h4>${item.team_name}</h4>
                                 </div>
+
+                                <div class="row">
+                                    <div class="col s12 m12" style="padding-right: 2em;">
+                                        <div class="table-responsive">
+                                            <table class="table-striped table-responsive table-hover result-point">
+                                                <thead class="point-table-head">
+                                                    <tr>
+                                                        <th class="text-center">P</th>
+                                                        <th class="text-center">W</th>
+                                                        <th class="text-center">D</th>
+                                                        <th class="text-center">L</th>
+                                                        <th class="text-center">GS</th>
+                                                        <th class="text-center">GA</th>
+                                                        <th class="text-center">+/-</th>
+                                                        <th class="text-center">PTS</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="text-center">
+                                                    <tr>
+                                                        <td class="text-center">${item.team_played}</td>
+                                                        <td class="text-center">${item.team_won}</td>
+                                                        <td class="text-center">${item.team_draw}</td>
+                                                        <td class="text-center">${item.team_lost}</td>
+                                                        <td class="text-center">${item.team_goal}</td>
+                                                        <td class="text-center">${item.team_gagainst}</td>
+                                                        <td class="text-center">${item.team_difference}</td>
+                                                        <td class="text-center">${item.team_points}</td>                                
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
-                                </div>
-                                </div>
-                                </div>
+                            </div>
+                        </div>
+                        </div>
                                 `
                         })
 
                             $('.root').html(body)
 
                             $('.team-info').each(function() {
-                                let team_id = $(this).data('id')
+                                var team_id = $(this).data('id')
                                 $(this).click(function(e) {
                                     window.location.hash = '#teams?id=' + team_id;
                                     e.preventDefault()
@@ -237,7 +276,7 @@ const route = (page) => {
                             })
 
                             $('.card-stacked').each(function() {
-                                let team_id = $(this).data('id')
+                                var team_id = $(this).data('id')
                                 $(this).click(function(e) {
                                     window.location.hash = '#teams?id=' + team_id;
                                     e.preventDefault()
@@ -246,37 +285,53 @@ const route = (page) => {
                             })
 
                             $('.favorite').each(function() {
-                                let elem = $(this)
-                                let id = elem.data('id')
-                                let name = elem.data('name')
-                                let path_img = elem.data('url')
+                                var elem = $(this)
+                                var id = elem.data('id')
+                                var name = elem.data('name')
+                                var path_img = elem.data('url')
+                                var played = elem.data('played')
+                                var won = elem.data('won')
+                                var draw = elem.data('draw')
+                                var lost = elem.data('lost')
+                                var goal = elem.data('goal')
+                                var gagainst = elem.data('gagainst')
+                                var difference = elem.data('difference')
+                                var points = elem.data('points')
 
-                                let data = {
+                                var data = {
                                     id,
                                     name,
-                                    path_img
+                                    path_img,
+                                    played,
+                                    won,
+                                    draw,
+                                    lost,
+                                    goal,
+                                    gagainst,
+                                    difference,
+                                    points
                                 }
 
                                 elem.click(function(e) {
                                     e.preventDefault()
-                                    let isFavorite = elem.hasClass('checked')
+                                    var isFavorite = elem.hasClass('checked')
 
                                     if (!isFavorite) {
                                         elem.addClass('checked')
                                     } else {
-                                        var toastHTML = '<span>Deleted</span><button class="btn-flat toast-action">Undo</button>';
+                                        var toastHTML = '<span>dihapus dari favorite</span><button class="btn-flat toast-action">Undo</button>';
                                         M.toast({
                                             html: toastHTML,
                                             displayLength: '3000'
                                         });
 
-                                        let card = elem.closest('div.savedTeam')
+                                        var card = elem.closest('div.favteam')
                                         card.hide("slow")
 
-                                        let doRemove = setTimeout(() => {
+                                        var doRemove = setTimeout(() => {
                                             setFavorite(id, data)
                                             card.remove()
-                                            if ($('div.savedTeam').length == 0) {
+                                            if ($('div.favteam').length == 0) {
                                                 routeEmptyFavorite()
                                             }
                                         }, 3000)
@@ -322,10 +377,10 @@ const route = (page) => {
                             api_team = api.replace('[team_id]', team_id)
 
                             try {
-                                let getAPi = await fetch(api_team, options)
-                                let data = await getAPi.json()
+                                var getAPi = await fetch(api_team, options)
+                                var data = await getAPi.json()
 
-                                let table_row = ''
+                                var table_row = ''
 
                                 data.squad.reverse().forEach(item => {
                                     table_row += `
@@ -337,7 +392,7 @@ const route = (page) => {
                                     `
                                 })
 
-                                let card = `
+                                var card = `
                                 <div class="row">
                                 <div class="col s12 m6">
                                 <div class="card">
@@ -404,8 +459,8 @@ const route = (page) => {
 
                                 $('#show-squad').click((e) => {
                                     e.preventDefault()
-                                    let elem = $('.team-squad')
-                                    let btn = $('#show-squad')
+                                    var elem = $('.team-squad')
+                                    var btn = $('#show-squad')
 
                                     if (elem.hasClass('hide')) {
                                         elem.show('slow')
@@ -444,9 +499,6 @@ const route = (page) => {
                                         $('.scroll-to-top').fadeOut('500')
                                     }
                                 }
-
-                                //set theme now 
-                                getTheme()
                                 console.log(data)
                             } catch (e) {
                                 RouterError(getTeamById, '')
@@ -462,44 +514,11 @@ const route = (page) => {
         })
 }
 
-const colorPlateListener = () => {
-    getTheme()
-    $('#color_plate > li > a').each(function() {
-        let datacolor = $(this).attr('data-color')
-        let color = ''
-        switch (datacolor) {
-            case 'red':
-            color = 'red'
-            break
-            case 'black':
-            color = 'grey darken-4'
-            break
-            case 'green':
-            color = 'green'
-            break
-            default:
-            color = 'blue darken-1'
-        }
-
-        $(this).click(e => {
-            e.preventDefault()
-            $('#nav').attr('class', color)
-            $('#card-nav').attr('class', `card-panel ${color} rem-mt`)
-                $('.red, .green, .grey.darken-4, .blue.darken-1').not('i.red, i.green, i.grey.darken-4, i.blue.darken-1').each(function() {
-                    $(this).removeClass('red green grey blue darken-1 darken-4')
-                    $(this).addClass(color)
-                })
-                setTheme(datacolor)
-            })
-    })
-}
-
 const navListener = () => {
-    loadSidebar() //load name on index db
     var elems = document.querySelectorAll(".sidenav");
     M.Sidenav.init(elems);
     $('.sidenav > li > a, .topnav > li > a').each(function() {
-        let loaded = $(this).attr('href').substr(1)
+        var loaded = $(this).attr('href').substr(1)
 
         $(this).click(function() {
             M.Sidenav.getInstance($('.sidenav')).close();
@@ -516,12 +535,11 @@ const setMaterialize = () => {
 
 const RouterTable = async(params) => {
     console.log("ambil data nih")
-    let loading = `<div class="col s3 l3 progress">
+    var loading = `<div class="col s3 l3 progress">
     <div class="indeterminate blue darken-1"></div>
     </div>
     `
     $('#body-content').html(loading)
-    getTheme()
 
     const api = 'https://api.football-data.org/v2/competitions/[team]/standings'
     const token = '153f20017fe647ed8532923d2e3f3929'
@@ -538,21 +556,20 @@ const RouterTable = async(params) => {
         seriea: 2019
     }
 
-    let newapi = api.replace('[team]', url[params])
+    var newapi = api.replace('[team]', url[params])
 
     try {
-        let data = await fetch(newapi, options)
-
-        let json = await data.json()
-        let result = await json.standings[0]
-        let table = await result.table
+        var data = await fetch(newapi, options)
+        var json = await data.json()
+        var result = await json.standings[0]
+        var table = await result.table
         console.log(result)
-        let content = ``
-        let favorite = await getFavorite()
+        var content = ``
+        var favorite = await getFavorite()
         table.forEach(item => {
-            let checked = ''
+            var checked = ''
 
-            for (let i in favorite) {
+            for (var i in favorite) {
                 if (favorite[i].team_id == item.team.id) {
                     checked = 'checked'
                     break
@@ -562,7 +579,19 @@ const RouterTable = async(params) => {
             content += `<div class="col s12 m7">
                             <p class="header">${item.position+". "+item.team.name}</p>
                             <div class="card horizontal">
-                                <a href="#!" data-id="${item.team.id}" data-url="${item.team.crestUrl.replace(/^http:\/\//i, 'https://')}" data-name="${item.team.name}" class="favorite ${checked}"><i class="small material-icons circle">grade</i></a>
+                                <a href="#!" 
+                                data-id="${item.team.id}" 
+                                data-url="${item.team.crestUrl.replace(/^http:\/\//i, 'https://')}" 
+                                data-name="${item.team.name}"
+                                data-played="${item.playedGames}" 
+                                data-won="${item.won}" 
+                                data-draw="${item.draw}"
+                                data-lost="${item.lost}" 
+                                data-goal="${item.goalsFor}" 
+                                data-gagainst="${item.goalsAgainst}" 
+                                data-difference="${item.goalDifference}" 
+                                data-points="${item.points}"  
+                                class="favorite ${checked}"><i class="small material-icons circle">grade</i></a>
                                 <div class="card-image icon-table">
                                     <img alt="club ${item.team.name}" onerror="this.src='./assets/img/icon/Icon-144.png'" src="./assets/img/icon/Icon-144.png" class="team-icon lazyload" data-src="${item.team.crestUrl.replace(/^http:\/\//i, 'https://')}">
                                 </div>
@@ -584,14 +613,14 @@ const RouterTable = async(params) => {
                                                 </thead>
                                                 <tbody class="text-center">
                                                     <tr>
-                                                        <td>${item.playedGames}</td>
-                                                        <td>${item.won}</td>
-                                                        <td>${item.draw}</td>
-                                                        <td>${item.lost}</td>
-                                                        <td>${item.goalsFor}</td>
-                                                        <td>${item.goalsAgainst}</td>
-                                                        <td>${item.goalDifference}</td>
-                                                        <td>${item.points}</td>                                
+                                                        <td class="text-center">${item.playedGames}</td>
+                                                        <td class="text-center">${item.won}</td>
+                                                        <td class="text-center">${item.draw}</td>
+                                                        <td class="text-center" class="text-center">${item.lost}</td>
+                                                        <td class="text-center">${item.goalsFor}</td>
+                                                        <td class="text-center">${item.goalsAgainst}</td>
+                                                        <td class="text-center">${item.goalDifference}</td>
+                                                        <td class="text-center">${item.points}</td>                                
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -601,40 +630,54 @@ const RouterTable = async(params) => {
                             </div>
                         </div>`
         })
-
-        let defaultTheme = getDefaultTheme().then(color => {
+            console.log("lolos nih")
             content += `          
-            <a class="btn-floating waves-effect waves-light btn-large ${color} btn-back"><i class="material-icons circle">arrow_back</i></a>
+            <a class="btn-floating waves-effect waves-light btn-large blue darken-1 btn-back"><i class="material-icons circle">arrow_back</i></a>
             <div class="floating-bottom"> 
-            <a class="btn-floating btn-large waves-effect waves-light ${color} scroll-to-top"><i class="material-icons">expand_less</i></a>
+            <a class="btn-floating btn-large waves-effect waves-light blue darken-1 scroll-to-top"><i class="material-icons">expand_less</i></a>
             </div>
             `
             document.querySelector('#body-content').innerHTML = content
-        }).then(() => {
             //event when Favorite
             $('.favorite').each(function() {
-                let elem = $(this)
-                let id = elem.data('id')
-                let name = elem.data('name')
-                let path_img = elem.data('url')
+                var elem = $(this)
+                var id = elem.data('id')
+                var name = elem.data('name')
+                var path_img = elem.data('url')
+                var played = elem.data('played')
+                var won = elem.data('won')
+                var draw = elem.data('draw')
+                var lost = elem.data('lost')
+                var goal = elem.data('goal')
+                var gagainst = elem.data('gagainst')
+                var difference = elem.data('difference')
+                var points = elem.data('points')
 
-                let data = {
+                var data = {
                     id,
                     name,
-                    path_img
+                    path_img,
+                    played,
+                    won,
+                    draw,
+                    lost,
+                    goal,
+                    gagainst,
+                    difference,
+                    points
                 }
 
                 elem.click(function(e) {
                     e.preventDefault()
                     setFavorite(id, data)
-                    let isFavorite = elem.hasClass('checked')
+                    var isFavorite = elem.hasClass('checked')
 
-                    let message = ''
+                    var message = ''
                     if (!isFavorite) {
-                        message = data.name + " has been favorite"
+                        message = data.name + " ditambah ke favorite"
                         elem.addClass('checked')
                     } else {
-                        message = data.name + " has been unfavorite"
+                        message = data.name + " dihapus dari favorite"
                         elem.removeClass('checked')
                     }
 
@@ -658,17 +701,16 @@ const RouterTable = async(params) => {
                     $('.scroll-to-top').fadeOut('500')
                 }
             }
-        })
     } catch (err) {
         RouterError(RouterTable, params)
     }
 }
 
 const RouterError = (callback, params) => {
-    let errMessage = `<div class="s12 l12 center notif">
+    var errMessage = `<div class="s12 l12 center notif">
     <div><img class="responsive-img signal" src="./assets/img/ui/img-no-network.svg"></div>
-    <div><h3>no network</h3></div>
-    <div><span>Please check your network connectivity</span></div>
+    <div><h3>Tidak ada koneksi internet</h3></div>
+    <div><span>Mohon cek kembali koneksi anda</span></div>
     <div><a href="" class="waves-effect reload"><i class="material-icons font-red right-align">refresh</i></a></di>
     </div>`
     $('#body-content').html(errMessage)
@@ -680,10 +722,10 @@ const RouterError = (callback, params) => {
 }
 
 const routeEmptyFavorite = () => {
-    let emptyMess = `
+    var emptyMess = `
     <div class="s12 l12 center notif">
     <div><img class="responsive-img signal" src="./assets/img/ui/favorite.png"></div>
-    <div><h4>Nothing favorite teams</h4></div>
+    <div><h4>Belum ada tim favorite</h4></div>
     <div>Ayo tambahkan list team favorite mu</div>
     </div>
     `

@@ -52,7 +52,6 @@ var champions = async() => {
         })
 
         $('.root').html(championsHTML)
-        getTheme()
     }catch{
         RouterError(champions, '')
     }

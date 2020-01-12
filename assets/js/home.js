@@ -42,9 +42,7 @@ var home = async() => {
             </div>
             `
         })
-
         $('.root').html(homeBody)
-        getTheme()
     }catch{
         RouterError(home, '')
     }

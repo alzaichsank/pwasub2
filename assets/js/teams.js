@@ -149,7 +149,6 @@ var getTeamById = async() => {
             }
 
             //set theme now 
-            getTheme()
             console.log(data)
 
         } catch (e) {
