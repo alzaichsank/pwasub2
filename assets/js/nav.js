@@ -547,15 +547,9 @@ const RouterTable = async(params) => {
         let result = await json.standings[0]
         let table = await result.table
         console.log(result)
-
-        //make empty
         let content = ``
-
         let favorite = await getFavorite()
-
-        //id Favorite team in array
         table.forEach(item => {
-            //if item.team.id in array of id Favorite, checked is true
             let checked = ''
 
             for (let i in favorite) {
@@ -565,49 +559,47 @@ const RouterTable = async(params) => {
                 }
             }
 
-            content += `
-            <div class="col s12 m7">
-            <h4 class="header">${item.position+". "+item.team.name}</h4>
-            <div class="card horizontal">
-            <a href="#!" data-id="${item.team.id}" data-url="${item.team.crestUrl.replace(/^http:\/\//i, 'https://')}" data-name="${item.team.name}" class="favorite ${checked}"><i class="small material-icons circle">grade</i></a>
-            <div class="card-image icon-club">
-            <img alt="club ${item.team.name}" onerror="this.src='./assets/img/icon/Icon-144.png'" src="./assets/img/icon/Icon-144.png" class="icon-club lazyload" data-src="${item.team.crestUrl.replace(/^http:\/\//i, 'https://')}">
-            </div>
-            <div class="card-stacked">
-            <div class="card-content">
-            <ul class="collection">
-            <li class="collection-item avatar">
-            <i class="material-icons circle blue">event_available</i>
-            <span class="title">Played Game</span>
-            <p>
-            <b>${item.playedGames}</b>
-            </p>
-            </li>
-            <li class="collection-item avatar">
-            <i class="material-icons circle green">thumb_up</i>
-            <span class="title">Won</span>
-            <p>
-            <b>${item.won}</b>
-            </p>
-            </li>
-            <li class="collection-item avatar">
-            <i class="material-icons circle">pause</i>
-            <span class="title">Draw</span>
-            <p><b>${item.draw}</b> <br>
-            </p>
-            </li>
-            <li class="collection-item avatar">
-            <i class="material-icons circle red">thumb_down</i>
-            <span class="title">Lost</span>
-            <p><b>${item.lost}</b> <br>
-            </p>
-            </li>
-            </ul>
-            </div>
-            </div>
-            </div>
-            </div>
-            `
+            content += `<div class="col s12 m7">
+                            <p class="header">${item.position+". "+item.team.name}</p>
+                            <div class="card horizontal">
+                                <a href="#!" data-id="${item.team.id}" data-url="${item.team.crestUrl.replace(/^http:\/\//i, 'https://')}" data-name="${item.team.name}" class="favorite ${checked}"><i class="small material-icons circle">grade</i></a>
+                                <div class="card-image icon-table">
+                                    <img alt="club ${item.team.name}" onerror="this.src='./assets/img/icon/Icon-144.png'" src="./assets/img/icon/Icon-144.png" class="team-icon lazyload" data-src="${item.team.crestUrl.replace(/^http:\/\//i, 'https://')}">
+                                </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                        <div class="table-responsive">
+                                            <table class="table-striped table-responsive table-hover result-point">
+                                                <thead class="point-table-head">
+                                                    <tr>
+                                                        <th class="text-center">P</th>
+                                                        <th class="text-center">W</th>
+                                                        <th class="text-center">D</th>
+                                                        <th class="text-center">L</th>
+                                                        <th class="text-center">GS</th>
+                                                        <th class="text-center">GA</th>
+                                                        <th class="text-center">+/-</th>
+                                                        <th class="text-center">PTS</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="text-center">
+                                                    <tr>
+                                                        <td>${item.playedGames}</td>
+                                                        <td>${item.won}</td>
+                                                        <td>${item.draw}</td>
+                                                        <td>${item.lost}</td>
+                                                        <td>${item.goalsFor}</td>
+                                                        <td>${item.goalsAgainst}</td>
+                                                        <td>${item.goalDifference}</td>
+                                                        <td>${item.points}</td>                                
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>`
         })
 
         let defaultTheme = getDefaultTheme().then(color => {

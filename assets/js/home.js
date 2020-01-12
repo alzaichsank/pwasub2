@@ -46,7 +46,7 @@ var home = async() => {
         $('.root').html(homeBody)
         getTheme()
     }catch{
-        RouterError(schedule, '')
+        RouterError(home, '')
     }
     
 }

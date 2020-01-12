@@ -1,7 +1,7 @@
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", function() {
         navigator.serviceWorker
-            .register("./footmas-workbox.js")
+            .register("./footms-workbox.js")
             .then(res => {
                 console.log("app registered")
             })

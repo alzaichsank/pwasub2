@@ -16,8 +16,8 @@ const urlToCache = [
     //pages
     "./pages/home.html",
     "./pages/favorite.html",
-    "./pages/standings.html",
-    "./pages/schedule.html",
+    "./pages/table.html",
+    "./pages/champions.html",
     "./pages/feedback.html",
 
     //asset custom

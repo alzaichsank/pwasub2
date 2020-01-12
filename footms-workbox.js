@@ -17,7 +17,7 @@ workbox.precaching.precacheAndRoute([
 
     //pages
     { url: "./pages/home.html", revision: '1' },
-    { url: "./pages/standings.html", revision: '1' },
+    { url: "./pages/table.html", revision: '1' },
     { url: "./pages/favorite.html", revision: '1' },
     { url: "./pages/feedback.html", revision: '1' },
     { url: "./pages/teams.html", revision: '1' },
@@ -28,7 +28,7 @@ workbox.precaching.precacheAndRoute([
     { url: "./assets/js/indexDb.js", revision: '1' },
     { url: "./assets/js/teams.js", revision: '1' },
     { url: "./assets/js/favorite.js", revision: '1' },
-    { url: "./assets/js/schedule.js", revision: '1' },
+    { url: "./assets/js/home.js", revision: '1' },
     //banner
     { url: "./assets/img/liga/ic_bundes.jpg", revision: '1' },
     { url: "./assets/img/liga/ic_laliga.jpg", revision: '1' },
@@ -48,7 +48,7 @@ workbox.precaching.precacheAndRoute([
     { url: "./assets/img/icon/Icon-96.png", revision: '1' },
     //system
     { url: "./app.js", revision: '1' },
-    { url: "./footmas-workbox.js", revision: '1' },
+    { url: "./footms-workbox.js", revision: '1' },
     { url: "./manifest.json", revision: '1' }
 ])
 
@@ -81,21 +81,21 @@ workbox.routing.registerRoute(
     })
 )
 
-workbox.routing.registerRoute(
-    new RegExp('https://upload.wikimedia.org'),
-    new workbox.strategies.CacheFirst({
-        cacheName: 'image',
-        plugins: [
-            new workbox.expiration.Plugin({
-                maxEntries: 100,
-                maxAgeSeconds: 60 * 60 * 24 * 30
-            }),
-            new workbox.cacheableResponse.Plugin({
-                statuses: [0, 200]
-            })
-        ]
-    })
-);
+// workbox.routing.registerRoute(
+//     new RegExp('https://upload.wikimedia.org'),
+//     new workbox.strategies.CacheFirst({
+//         cacheName: 'image',
+//         plugins: [
+//             new workbox.expiration.Plugin({
+//                 maxEntries: 100,
+//                 maxAgeSeconds: 60 * 60 * 24 * 30
+//             }),
+//             new workbox.cacheableResponse.Plugin({
+//                 statuses: [0, 200]
+//             })
+//         ]
+//     })
+// );
 
 self.addEventListener('push', event => {
     let body
