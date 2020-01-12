@@ -11,10 +11,10 @@ var options = {
 // let id_liga = 2014
 
 var getDate = (date) => {
-   let d = new Date(date);
-   let tgl = d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate()
+ let d = new Date(date);
+ let tgl = d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate()
 
-   return tgl
+ return tgl
 }
 
 var getHours = (date) => {
@@ -24,7 +24,7 @@ var getHours = (date) => {
 
 }
 
-var scheduleChampions = async() => {
+var champions = async() => {
     // let schedule_api = api.replace('[id_liga]', id_liga)
     // console.log(schedule_api);
     try{
@@ -33,38 +33,30 @@ var scheduleChampions = async() => {
 
         console.log(data);
 
-        let scheduleChampionsHTML = `<div class="center">
-        <h4>${data.competition.name}<i class="material-icons prefix small">schedule</i></h4>
-        </div>`
+        var championsHTML = ``
 
-        data.matches.forEach(item => {
-            scheduleChampionsHTML += `
-            <div class="col l6 s12 mb7 center">
-            <div class="club-match-header blue darken-1">
-            <span style="color: white;">${item.competition.name}</span>
-            </div>
-            <div class="club-match blue darken-1">
-            <div class="home">
-            <h5>${item.homeTeam.name}</h5>
-            </div>
-            <span class="versus">vs</span>
-            <div class="away">
-            <h5>${item.awayTeam.name}</h5>
-            </div>
-            </div>
-            <div class="club-match-info blue darken-1">
-            <span>${getDate(item.utcDate)+ ' '+getHours(item.utcDate)}</span>
+        championsHTML += `<div class="center">
+        <h5 style="padding: 20px 20px 20px 20px;">${data.competition.name}</h5>
+        </div>`
+        data.matches.reverse().forEach(item => {
+            championsHTML +=
+            `
+            <div class="col l12 s12 mb12 center" style="padding-bottom: 2px;">
+            <div class="table-match blue darken-1">
+            <p style="color: white;">${getDate(item.utcDate)+ ' '+getHours(item.utcDate)}</p>
+            <div class="divider"></div>
+            <p style="color: white;">${item.homeTeam.name}&nbsp; VS &nbsp;${item.awayTeam.name}</p>
             </div>
             </div>
             `
         })
 
-        $('.root').html(scheduleChampionsHTML)
+        $('.root').html(championsHTML)
         getTheme()
     }catch{
-        RouterError(schedule, '')
+        RouterError(champions, '')
     }
     
 }
 
-scheduleChampions()
+champions()

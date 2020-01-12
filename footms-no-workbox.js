@@ -1,4 +1,4 @@
-const CACHE_NAME = "PWA-Football-M.S-v0.0.1";
+const CACHE_NAME = "Foot-M.S-v0.0.2";
 
 const urlToCache = [
     //index page
@@ -22,15 +22,14 @@ const urlToCache = [
 
     //asset custom
     "./assets/css/style.css",
-    "./assets/js/custom.js",
+    "./assets/js/nav.js",
     "./assets/js/indexDb.js",
-    "./assets/js/settings.js",
     //banner
-    "./assets/img/club/banner/ic_bundes.jpg",
-    "./assets/img/club/banner/ic_laliga.jpg",
-    "./assets/img/club/banner/ic_league1.jpg",
-    "./assets/img/club/banner/ic_premier.jpg",
-    "./assets/img/club/banner/ic_seriea.jpg",
+    "./assets/img/liga/ic_bundes.jpg",
+    "./assets/img/liga/ic_laliga.jpg",
+    "./assets/img/liga/ic_league1.jpg",
+    "./assets/img/liga/ic_premier.jpg",
+    "./assets/img/liga/ic_seriea.jpg",
     //ui
     "./assets/img/ui/img-no-network.svg",
     "./assets/img/ui/thankyou.png",
@@ -47,8 +46,7 @@ const urlToCache = [
     //web info
     "./manifest.json",
     //system
-    "./sw-reg.js",
-    "./sw-football.js",
+    "./app.js",
 
 ];
 
@@ -89,14 +87,11 @@ self.addEventListener('fetch', event => {
             .match(event.request, { cacheName: CACHE_NAME })
             .then(function(response) {
                 if (response) {
-                    console.log("sw offline:  ", response.url);
+                    console.log("ServiceWorker: Gunakan aset dari cache: ", response.url);
                     return response;
                 }
 
-                console.log(
-                    "sw online:  ",
-                    event.request.url
-                );
+                console.log("ServiceWorker: Memuat aset dari server: ", event.request.url);
 
                 return caches.open(CACHE_NAME).then(cache => {
                     return fetch(event.request).then(response => {
@@ -112,15 +107,10 @@ self.addEventListener('fetch', event => {
             .match(event.request, { cacheName: CACHE_NAME })
             .then(function(response) {
                 if (response) {
-                    console.log("sw img offline:  ", response.url);
+                    console.log("ServiceWorker: Gunakan image dari cache: ", response.url);
                     return response;
                 }
-
-                console.log(
-                    "sw img online:  ",
-                    event.request.url
-                );
-
+                console.log("ServiceWorker: Memuat aset dari server: ", event.request.url);
                 return caches.open(CACHE_NAME).then(cache => {
                     cache.add(uri)
                     return fetch(uri)
@@ -143,7 +133,7 @@ self.addEventListener('push', event => {
     if (event.data) {
         body = event.data.text()
     } else {
-        body = 'Push message no payload'
+        body = 'Pesan kosong'
     }
 
     const options = {

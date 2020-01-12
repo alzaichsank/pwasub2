@@ -1,7 +1,7 @@
 {
     "name": "Football Match Schedule",
     "short_name": "Football M.S",
-    "description": "Aplikasi pembelajaran koding",
+    "description": "aplikasi bola dicoding",
     "start_url": "/index.html",
     "display": "minimal-ui",
     "background_color": "#2196f3",

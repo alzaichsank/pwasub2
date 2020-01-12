@@ -1,16 +1,16 @@
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", function() {
         navigator.serviceWorker
-            .register("./sw-football-with-workbox.js")
+            .register("./footmas-workbox.js")
             .then(res => {
-                console.log("SW registered")
+                console.log("app registered")
             })
             .catch(function() {
-                console.log("SW failed");
+                console.log("app failed");
             })
         navigator.serviceWorker.ready.then(function(){
             regPushManager()
-        }).catch(()=> console.log("sw unready"))
+        }).catch(()=> console.log("app unready"))
     })
 } else {
     console.log("ServiceWorker belum didukung browser ini.");
@@ -63,8 +63,6 @@ function urlBase64ToUint8Array(base64) {
     }
     return outputArray;
 }
-
-//notification greetings
 
 const dt = new Date()
 

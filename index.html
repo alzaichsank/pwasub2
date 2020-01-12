@@ -3,11 +3,9 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#00897B">
-
+    <meta name="theme-color" content="#40c4ff">
     <link rel="icon" href="./assets/img/icon/Icon-512.png">
     <link rel="apple-touch-icon" href="./assets/img/icon/Icon-512.png">
-    
     <link rel="stylesheet" href="./vendor/materialize/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="./vendor/material-icon/deploy.css">
     <link rel="stylesheet" href="./assets/css/style.css">
@@ -34,7 +32,7 @@
             <ul class="topnav right hide-on-med-and-down">
                 <li><a class="waves-effect" href="#home">Home<i class="material-icons left">dvr</i></a></li>
                 <li><a class="waves-effect" href="#champions">Champions<i class="material-icons left">emoji_events</i></a></li>
-                <li><a class="waves-effect" href="#standings"><i class="material-icons left">list_alt</i> Table</a></li>
+                <li><a class="waves-effect" href="#table"><i class="material-icons left">list_alt</i> Table</a></li>
                 <li><a class="waves-effect" href="#favorite"><i class="material-icons left">star_border</i> Favorite Team</a></li>
                 <li><a class="waves-effect tooltipped" data-position="bottom" data-tooltip="feedback" href="#feedback"><i class="material-icons">feedback</i></a></li>
             </ul>
@@ -42,21 +40,15 @@
             <!-- SIDEBAR -->
             <ul class="sidenav" id="nav-mobile">
                 <div id="card-nav" class="card-panel blue darken-1 rem-mt">
-                    <div class="float top-right settings">
-                        <a class="waves-effect" href="#settings"><i class="material-icons">settings</i></a>
-                    </div>
-                    <div class="col s2 center">
-                        <img class="circle responsive-img z-depth-3 h-zoom" src="./assets/img/icon/Icon-96.png">
-                    </div>
-                    <div class="col-2 center">
-                        <h4 style="color: white;" id="account-user-name">Your Account Name</h4>
+                    <div class="center">
+                        <h6 style="color: white;">Menu</h6>
                     </div>
                 </div>
                 <li><a class="waves-effect" href="#home">Home<i class="material-icons right">dvr</i></a></li>
                 <div class="divider"></div>
                 <li><a class="waves-effect" href="#champions">Champions<i class="material-icons right">emoji_events</i></a></li>
                 <div class="divider"></div>
-                <li><a class="waves-effect" href="#standings">Table<i class="material-icons right">list_alt</i></a></li>
+                <li><a class="waves-effect" href="#table">Table<i class="material-icons right">list_alt</i></a></li>
                 <div class="divider"></div>
                 <li><a class="waves-effect" href="#favorite">Favorite Team<i class="material-icons right">star_border</i></a></li>
                 <div class="divider"></div>
@@ -66,24 +58,21 @@
         </div>
     </nav>
     <!-- end navigation -->
-
     <!-- content container -->
-    <div class="container" id="body-content">
+    <div class="container" id="body-content"></div>
+<!-- end content -->
 
-    </div>
-    <!-- end content -->
+<!-- service worker -->
+<script src="./app.js">
+</script>
+<!-- end service worker -->
 
-    <!-- service worker -->
-    <script src="./sw-reg.js">
-    </script>
-    <!-- end service worker -->
-
-    <script src="./vendor/jquery/jquery.min.js"></script>
-    <script src="./vendor/materialize/materialize.min.js"></script>
-    <script src="./vendor/idb/idb.js"></script>
-    <script src="./vendor/lazyload/lazyload.min.js"></script>
-    <script src="./assets/js/indexDb.js"></script>
-    <script src="./assets/js/custom.js"></script>
+<script src="./vendor/jquery/jquery.min.js"></script>
+<script src="./vendor/materialize/materialize.min.js"></script>
+<script src="./vendor/idb/idb.js"></script>
+<script src="./vendor/lazyload/lazyload.min.js"></script>
+<script src="./assets/js/indexDb.js"></script>
+<script src="./assets/js/nav.js"></script>
 </body>
 
 </html>
