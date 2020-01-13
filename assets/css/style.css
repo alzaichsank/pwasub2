@@ -296,9 +296,63 @@ body {
 }
 
 .text-left {
-    text-align: left !important
+    text-align: left !important;
 }
 
+.text-right {
+    text-align: right !important;
+}
+
+.split-para{ 
+    display:block;
+    margin:10px;
+    max-width: 100%
+    font-size: 5px;
+}
+
+.progress-team{
+    float:center;
+    text-align: center;
+    width:25%;
+    color: orange;
+    font-size: 10px;   
+}
+
+.status-team{
+    float:center;
+    text-align: center;
+    width:25%;
+    color: blue;
+    font-size: 10px;   
+}
+
+.text-versus{
+    font-size: 14px;   
+}
+.home-team{
+    max-width: 25%;
+    float:left;
+    width:25%;
+}
+
+.home-team.color{
+    color: green;
+}
+.vs-team{
+    float:center;
+    width:25%;
+    color: black;
+    font-size: 20px;   
+}
+.away-team{
+    max-width: 25%;
+    float:right;
+    width:25%;
+}
+
+.away-team.color{
+    color: red;
+}
 
 table {
     max-width: 100%;
@@ -357,6 +411,12 @@ table tr td img {
     .card-image.icon-table {
         padding-top: 1.5em;
         margin: auto;
+    }
+
+    .split-para{ 
+        display:block;
+        margin:10px;
+        max-width: 100%
     }
 
     table {

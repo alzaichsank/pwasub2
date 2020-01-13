@@ -71,15 +71,44 @@ const route = (page) => {
                                     var homeBody = ''
 
                                     data.matches.forEach(item => {
-                                        homeBody += `
+                                       
+                                        homeBody +=`
                                         <div class="col l12 s12 mb12 center" style="padding-bottom: 2px;">
-                                            <div class="table-match blue darken-1">
-                                                 <p style="color: white;">${item.competition.name} <br>${getDate(item.utcDate)+ ' '+getHours(item.utcDate)}</p>
-                                                 <div class="divider"></div>
-                                                <p style="color: white;">${item.homeTeam.name}&nbsp; VS &nbsp;${item.awayTeam.name}</p>
-                                             </div>
-                                        </div>
-                                        `
+                                        <table class="info-club striped"">
+                                                                    <tr>
+                                                                    <td class="text-center">${item.competition.name}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                    <tr>
+                                                                    <td class="text-center"><span class="status-team text-versus">${item.score.winner}</span> </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                    <td>
+                                                                    <p class="split-para text-center">
+                                                                        <span class="home-team color  text-versus">HOME</span>
+                                                                        <span class="progress-team text-versus">${item.status}</span> 
+                                                                        <span class="away-team color text-versus">AWAY</span>
+                                                                    </p>
+                                                                    </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                    <tr>
+                                                                    <td>
+                                                                    <p class="split-para text-center">
+                                                                        <span class="home-team  text-versus">${item.homeTeam.name}</span>
+                                                                        <span class="vs-team text-versus"> VS </span> 
+                                                                        <span class="away-team text-versus">${item.awayTeam.name}</span>
+                                                                    </p>
+                                                                    <p class="split-para text-center">
+                                                                        <span class="home-team  text-versus">${item.score.fullTime.homeTeam}</span>
+                                                                        <span class="away-team text-versus">${item.score.fullTime.awayTeam}</span>
+                                                                    </p>
+                                                                    </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                    <td class="text-center">${getDate(item.utcDate)+ ' '+getHours(item.utcDate)}</td>
+                                                                    </tr>
+                                        </div>`
                                     })
 
                                     $('.root').html(homeBody)
@@ -129,14 +158,42 @@ const route = (page) => {
                                     data.matches.reverse().forEach(item => {
                                         championsHTML +=
                                         `
-                                        <div class="col l12 s12 mb12 center" style="padding-bottom: 2px;">
-                                        <div class="table-match blue darken-1">
-                                        <p style="color: white;">${getDate(item.utcDate)+ ' '+getHours(item.utcDate)}</p>
-                                        <div class="divider"></div>
-                                        <p style="color: white;">${item.homeTeam.name}&nbsp; VS &nbsp;${item.awayTeam.name}</p>
-                                        </div>
-                                        </div>
-                                        `
+                                           <div class="col l12 s12 mb12 center" style="padding-bottom: 2px;">
+                                           <table class="info-club striped"">
+                                           <tr>
+                                           <td class="text-center">${item.stage}</td>
+                                           </tr>
+                                           <tr>
+                                           <tr>
+                                           <td class="text-center"><span class="status-team text-versus">${item.score.winner}</span> </td>
+                                           </tr>
+                                           <tr>
+                                           <td>
+                                           <p class="split-para text-center">
+                                           <span class="home-team color  text-versus">HOME</span>
+                                           <span class="progress-team text-versus">${item.status}</span> 
+                                           <span class="away-team color text-versus">AWAY</span>
+                                           </p>
+                                           </td>
+                                           </tr>
+                                           <tr>
+                                           <tr>
+                                           <td>
+                                           <p class="split-para text-center">
+                                           <span class="home-team  text-versus">${item.homeTeam.name}</span>
+                                           <span class="vs-team text-versus"> VS </span> 
+                                           <span class="away-team text-versus">${item.awayTeam.name}</span>
+                                           </p>
+                                           <p class="split-para text-center">
+                                           <span class="home-team  text-versus">${item.score.fullTime.homeTeam}</span>
+                                           <span class="away-team text-versus">${item.score.fullTime.awayTeam}</span>
+                                           </p>
+                                           </td>
+                                           </tr>
+                                           <tr>
+                                           <td class="text-center">${getDate(item.utcDate)+ ' '+getHours(item.utcDate)}</td>
+                                           </tr>
+                                           </div>`
                                     })
                                     console.log("masuk gan 2");
                                     $('.root').html(championsHTML)
