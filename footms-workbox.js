@@ -81,22 +81,6 @@ workbox.routing.registerRoute(
     })
 )
 
-// workbox.routing.registerRoute(
-//     new RegExp('https://upload.wikimedia.org'),
-//     new workbox.strategies.CacheFirst({
-//         cacheName: 'image',
-//         plugins: [
-//             new workbox.expiration.Plugin({
-//                 maxEntries: 100,
-//                 maxAgeSeconds: 60 * 60 * 24 * 30
-//             }),
-//             new workbox.cacheableResponse.Plugin({
-//                 statuses: [0, 200]
-//             })
-//         ]
-//     })
-// );
-
 self.addEventListener('push', event => {
     let body
     if (event.data) {

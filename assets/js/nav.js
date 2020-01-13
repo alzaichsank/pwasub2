@@ -73,6 +73,10 @@ const route = (page) => {
                                     data.matches.forEach(item => {
                                        
                                         homeBody +=`
+                                        <div class="center">
+                                          <h5>Jadwal hari ini</i></h5>
+                                          <p>Jangan lupa saksikan tim favorite mu</p>
+                                      </div>
                                         <div class="col l12 s12 mb12 center" style="padding-bottom: 2px;">
                                         <table class="info-club striped"">
                                                                     <tr>
