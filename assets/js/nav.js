@@ -1,6 +1,8 @@
+var prevpage = ''
 document.addEventListener("DOMContentLoaded", () => {
     var page = window.location.hash.substr(1);
     var path = page.split('/')
+    
     if (path.length > 1 && path[1] != '') {
         var first = path[0]
         switch (first) {
@@ -39,6 +41,7 @@ const route = (page) => {
         M.Sidenav.getInstance($('.sidenav')).close();
         switch (page) {
             case 'home':
+                prevpage = page            
                 var api = 'https://api.football-data.org/v2/matches'
                 var token = '153f20017fe647ed8532923d2e3f3929'
                 var options = {
@@ -90,6 +93,7 @@ const route = (page) => {
                         home()
             break
             case 'champions':
+                prevpage = page            
                 var api = 'https://api.football-data.org/v2/competitions/CL/matches'
                 var token = '153f20017fe647ed8532923d2e3f3929'
                 var options = {
@@ -146,6 +150,7 @@ const route = (page) => {
                 champions()
             break
             case 'table':
+                prevpage = page            
                 $('.table > div > div > a').each((index, item) => {
                         var uri = $(item).attr('href').substr(7)
                         $(item).click(() => {
@@ -153,8 +158,9 @@ const route = (page) => {
                         })
                     })
             break
-            case 'feedback':
-                $('.feedback-send').click(() => {
+            case 'sugestion':
+                prevpage = page            
+                $('.sugestion-send').click(() => {
                     var email = $('#email').val()
                     var message = $('#message').val()
                     var container = $('#body-content')
@@ -165,13 +171,13 @@ const route = (page) => {
                     <div><img class="responsive-img signal" src="./assets/img/ui/thankyou.png"></div>
                     <div><span>we hope can be better</span></div><br><br>
                     <div class="center">
-                    <button class="btn waves-effect waves-light round" onclick="route('feedback')"><i class="material-icons">arrow_back</i></button>
+                    <button class="btn waves-effect waves-light blue darken-1 round" onclick="route('sugestion')"><i class="material-icons">arrow_back</i></button>
                     </div>
                     </div>`
                     var errMessage = `<div class="s12 l12 center notif">
                     <div><img class="responsive-img signal" src="./assets/img/ui/img-no-network.svg"></div>
-                    <div><h3>no network</h3></div>
-                    <div><span>Please check your network connectivity</span></div>
+                    <div><h3>Tidak ada koneksi internet</h3></div>
+                    <div><span>Mohon cek koneksi anda</span></div>
                     </div>`
 
                     container.html(loading)
@@ -180,7 +186,7 @@ const route = (page) => {
                         url: 'http://sendfeedback.codehopedevloper.com/',
                         data: {
                             sender: email,
-                            subject: "feedback",
+                            subject: "sugestion",
                             message: message
                         },
                         success: res => {
@@ -193,6 +199,7 @@ const route = (page) => {
                 })
             break
             case 'favorite':
+                prevpage = page            
                 getFavorite().then(res => {
                         if (res.length == 0) {
                             routeEmptyFavorite()
@@ -347,7 +354,7 @@ const route = (page) => {
                         }
                     })
             break
-            case 'teamsdetail':
+            case 'teamsdetail':            
                     var getTeamByIdTeam = async() => {
                         const root = $('.root')
                         const url_params = window.location.href
@@ -585,8 +592,13 @@ const route = (page) => {
                                     
                                 })
                                 $('.btn-back').click(() => {
-                                    window.location.hash = '#favorite';
-                                    route("favorite")
+                                    if(prevpage == 'favorite'){
+                                        window.location.hash = '#favorite';
+                                        route("favorite")
+                                    }else if(prevpage == 'table'){
+                                        window.location.hash = '#table';
+                                        route("table")
+                                    }
                                 })
                                 $('.floating-bottom').click(event => {
                                     event.preventDefault()
@@ -693,10 +705,10 @@ const RouterTable = async(params) => {
                                 data-difference="${item.goalDifference}" 
                                 data-points="${item.points}"  
                                 class="favorite ${checked}"><i class="small material-icons circle">grade</i></a>
-                                <div class="card-image smallheight">
+                                <div class="card-image smallheight" data-id="${item.team.id}">
                                     <img alt="club ${item.team.name}" onerror="this.src='./assets/img/icon/Icon-144.png'" src="./assets/img/icon/Icon-144.png" class="team-icon lazyload" data-src="${item.team.crestUrl.replace(/^http:\/\//i, 'https://')}">
                                 </div>
-                                    <div class="row">
+                                    <div class="row" data-id="${item.team.id}">
                                         <div class="col-lg-12">
                                         <div class="table-responsive">
                                             <table class="table-striped table-responsive table-hover result-point">
@@ -784,6 +796,25 @@ const RouterTable = async(params) => {
 
                 })
             })
+
+            $('.row').each(function() {
+                                            var team_id = $(this).data('id')
+                                            $(this).click(function(e) {
+                                                window.location.hash = '#teamsdetail?id=' + team_id;
+                                                e.preventDefault()
+                                                route('teamsdetail')
+                                            })
+                                        })
+            $('.card-image ').each(function() {
+                                            var team_id = $(this).data('id')
+                                            $(this).click(function(e) {
+                                                window.location.hash = '#teamsdetail?id=' + team_id;
+                                                e.preventDefault()
+                                                route('teamsdetail')
+                                            })
+                                        })
+            
+
             $('.btn-back').click(() => {
                 route("table")
             })

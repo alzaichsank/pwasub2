@@ -19,7 +19,7 @@ workbox.precaching.precacheAndRoute([
     { url: "./pages/home.html", revision: '1' },
     { url: "./pages/table.html", revision: '1' },
     { url: "./pages/favorite.html", revision: '1' },
-    { url: "./pages/feedback.html", revision: '1' },
+    { url: "./pages/sugestion.html", revision: '1' },
     { url: "./pages/teamsdetail.html", revision: '1' },
 
     //asset custom

@@ -4,9 +4,9 @@
     "description": "aplikasi bola dicoding",
     "start_url": "/index.html",
     "display": "minimal-ui",
-    "background_color": "#2196f3",
+    "background_color": "#40c4ff",
     "orientation": "portrait",
-    "theme_color": "#2196f3",
+    "theme_color": "#40c4ff",
     "icons": [
         {
           "src": "./assets/img/icon/Icon-36.png",
