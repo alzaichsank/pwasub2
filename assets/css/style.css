@@ -28,7 +28,7 @@ body {
     width: 100%;
     text-align: center;
     font-size: 24px;
-    border-radius: 10px 10px 0 0 !important;
+    border-radius: 0px 0 0 0 !important;
 }
 
 .mt-3 {
@@ -226,10 +226,10 @@ body {
 
 .card-title {
     font-weight: bold !important;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.2);
     padding-top: 5px !important;
     padding-bottom: 5px !important;
-    border-radius: 0 10px 0 0;
+    border-radius: 0 0 0 0;
 }
 
 .ml-5 {
@@ -246,7 +246,7 @@ body {
 }
 
 .modal-trigger {
-    color: #1565c0 !important;
+    color: #40c4ff !important;
 }
 
 .font-green {
