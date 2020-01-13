@@ -20,13 +20,13 @@ workbox.precaching.precacheAndRoute([
     { url: "./pages/table.html", revision: '1' },
     { url: "./pages/favorite.html", revision: '1' },
     { url: "./pages/feedback.html", revision: '1' },
-    { url: "./pages/teams.html", revision: '1' },
+    { url: "./pages/teamsdetail.html", revision: '1' },
 
     //asset custom
     { url: "./assets/css/style.css", revision: '1' },
     { url: "./assets/js/nav.js", revision: '1' },
     { url: "./assets/js/indexDb.js", revision: '1' },
-    { url: "./assets/js/teams.js", revision: '1' },
+    { url: "./assets/js/teamsdetail.js", revision: '1' },
     { url: "./assets/js/favorite.js", revision: '1' },
     { url: "./assets/js/home.js", revision: '1' },
     //banner

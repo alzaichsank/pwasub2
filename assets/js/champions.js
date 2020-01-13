@@ -53,7 +53,7 @@ var champions = async() => {
 
         $('.root').html(championsHTML)
     }catch{
-        RouterError(champions, '')
+        RouterNetwork(champions, '')
     }
     
 }

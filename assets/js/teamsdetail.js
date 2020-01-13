@@ -1,16 +1,13 @@
-var getTeamById = async() => {
+var getTeamByIdTeam = async() => {
     const root = $('.root')
     const url_params = window.location.href
-
     const url = new URL(url_params)
     const getval = url.hash.indexOf('?')
     const params = new URLSearchParams(url.hash.substr(getval))
-
     const team_id = params.get('id')
     console.log(team_id)
     if (team_id == null) {
-        //show home of team page
-        root.html(`Gaada parameter`)
+        root.html(`kosong`)
     } else {
         //show detail team
         const api = 'https://api.football-data.org/v2/teams/[team_id]'
@@ -152,9 +149,9 @@ var getTeamById = async() => {
             console.log(data)
 
         } catch (e) {
-            RouterError(getTeamById, '')
+            RouterNetwork(getTeamByIdTeam, '')
         }
     }
 }
 
-getTeamById()
+getTeamByIdTeam()

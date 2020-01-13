@@ -17,6 +17,13 @@ body {
     height: 8em !important;
 }
 
+.team-icon.center {
+    text-align: center;
+    vertical-align: middle;
+    justify-content: center;
+    line-height: 90px;
+}
+
 .team-icon-title.card-title {
     width: 100%;
     text-align: center;
@@ -28,7 +35,7 @@ body {
     margin-top: 1em;
 }
 
-.scroll-to-top {
+.to-top {
     position: fixed;
     bottom: 1em;
     right: 1em;
@@ -57,9 +64,22 @@ body {
     height: auto;
 }
 
-.card-image.icon-table {
-    padding: 2em 2em 2em 2em;
+.card-image{
     display: flex;
+    justify-content: center;
+}
+
+.card-image.height{
+    height: 200px;
+}
+
+.card-image.smallheight{
+    height: 150px;
+}
+
+.card-image.icon-table {
+    height: 90px;
+    padding: 2em 2em 2em 2em;
     justify-content: center;
 }
 
@@ -93,8 +113,12 @@ body {
     position: relative;
 }
 
-.signal {
+.network {
     max-width: 13em !important;
+}
+
+.empty{
+   max-width: 13em !important;   
 }
 
 .mb7 {

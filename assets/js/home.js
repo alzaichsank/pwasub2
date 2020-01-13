@@ -44,7 +44,7 @@ var home = async() => {
         })
         $('.root').html(homeBody)
     }catch{
-        RouterError(home, '')
+        RouterNetwork(home, '')
     }
     
 }

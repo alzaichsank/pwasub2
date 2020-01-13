@@ -20,7 +20,7 @@ getFavorite().then(res => {
                             data-difference="${item.team_difference}" 
                             data-points="${item.team_points}"  
                             class="favorite checked"><i class="small material-icons circle">grade</i></a>
-							<div class="card-image icon-table">
+							<div class="card-image smallheight">
                                 <a href="#" data-id="${item.team_id}" class="team-info">
                                     <img alt="club ${item.team_path_icon}" onerror="this.src='./assets/img/icon/Icon-144.png'" src="./assets/img/icon/Icon-144.png" class="team-icon lazyload" data-src="${item.team_path_icon.replace(/^http:\/\//i, 'https://')}">
                                 </a>
@@ -73,18 +73,18 @@ getFavorite().then(res => {
         $('.team-info').each(function() {
             var team_id = $(this).data('id')
             $(this).click(function(e) {
-                window.location.hash = '#teams?id=' + team_id;
+                window.location.hash = '#teamsdetail?id=' + team_id;
                 e.preventDefault()
-                route('teams')
+                route('teamsdetail')
             })
         })
 
          $('.card-stacked').each(function() {
                                 var team_id = $(this).data('id')
                                 $(this).click(function(e) {
-                                    window.location.hash = '#teams?id=' + team_id;
+                                    window.location.hash = '#teamsdetail?id=' + team_id;
                                     e.preventDefault()
-                                    route('teams')
+                                    route('teamsdetail')
                                 })
                             })
 

@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
             RouterTable(path[1])
             break
             default:
-            RouterError()
+            RouterNetwork()
         }
     } else {
         if (page == '') {
@@ -84,7 +84,7 @@ const route = (page) => {
                                     routeEmptyHome()
                                 }
                             } catch {
-                                RouterError(home, '')
+                                RouterNetwork(home, '')
                             }
                         }
                         home()
@@ -137,10 +137,10 @@ const route = (page) => {
                                     console.log("masuk gan 2");
                                     $('.root').html(championsHTML)
                                 }else{
-                                    routeEmptySchedule()
+                                    routeEmptyHome()
                                 }
                             } catch {
-                                RouterError(champions, '')
+                                RouterNetwork(champions, '')
                             }
                         }
                 champions()
@@ -155,7 +155,6 @@ const route = (page) => {
             break
             case 'feedback':
                 $('.feedback-send').click(() => {
-
                     var email = $('#email').val()
                     var message = $('#message').val()
                     var container = $('#body-content')
@@ -216,7 +215,7 @@ const route = (page) => {
                             data-difference="${item.team_difference}" 
                             data-points="${item.team_points}"  
                             class="favorite checked"><i class="small material-icons circle">grade</i></a>
-                            <div class="card-image icon-table">
+                            <div class="card-image smallheight">
                                 <a href="#" data-id="${item.team_id}" class="team-info">
                                     <img alt="club ${item.team_path_icon}" onerror="this.src='./assets/img/icon/Icon-144.png'" src="./assets/img/icon/Icon-144.png" class="team-icon lazyload" data-src="${item.team_path_icon.replace(/^http:\/\//i, 'https://')}">
                                 </a>
@@ -263,24 +262,23 @@ const route = (page) => {
                         </div>
                                 `
                         })
-
                             $('.root').html(body)
 
                             $('.team-info').each(function() {
                                 var team_id = $(this).data('id')
                                 $(this).click(function(e) {
-                                    window.location.hash = '#teams?id=' + team_id;
+                                    window.location.hash = '#teamsdetail?id=' + team_id;
                                     e.preventDefault()
-                                    route('teams')
+                                    route('teamsdetail')
                                 })
                             })
 
                             $('.card-stacked').each(function() {
                                 var team_id = $(this).data('id')
                                 $(this).click(function(e) {
-                                    window.location.hash = '#teams?id=' + team_id;
+                                    window.location.hash = '#teamsdetail?id=' + team_id;
                                     e.preventDefault()
-                                    route('teams')
+                                    route('teamsdetail')
                                 })
                             })
 
@@ -349,8 +347,8 @@ const route = (page) => {
                         }
                     })
             break
-            case 'teams':
-                    var getTeamById = async() => {
+            case 'teamsdetail':
+                    var getTeamByIdTeam = async() => {
                         const root = $('.root')
                         const url_params = window.location.href
 
@@ -361,10 +359,8 @@ const route = (page) => {
                         const team_id = params.get('id')
                         console.log(team_id)
                         if (team_id == null) {
-                            //show home of team page
-                            root.html(`Gaada parameter`)
+                            root.html(`Kosong`)
                         } else {
-                            //show detail team
                             const api = 'https://api.football-data.org/v2/teams/[team_id]'
                             const token = '153f20017fe647ed8532923d2e3f3929'
                             const options = {
@@ -373,9 +369,7 @@ const route = (page) => {
                                     'X-Auth-Token': token
                                 }
                             }
-
                             api_team = api.replace('[team_id]', team_id)
-
                             try {
                                 var getAPi = await fetch(api_team, options)
                                 var data = await getAPi.json()
@@ -391,14 +385,17 @@ const route = (page) => {
                                     </tr>
                                     `
                                 })
-
                                 var card = `
                                 <div class="row">
-                                <div class="col s12 m6">
+                                <div class="col s12 m12">
                                 <div class="card">
-                                <div class="card-image">
-                                <img class="team-icon" src="${data.crestUrl.replace(/^http:\/\//i, 'https://')}">
-                                <span class="team-icon-title card-title">${data.name}</span>
+                                <div>
+                                    <div class="card-image height">
+                                        <img class="icon-table" src="${data.crestUrl.replace(/^http:\/\//i, 'https://')}">
+                                    </div>
+                                    <div class="card-image">
+                                        <span class="team-icon-title card-title">${data.name}</span>
+                                    </div>
                                 </div>
                                 <div class="card-content">
                                 <table class="info-club">
@@ -450,9 +447,9 @@ const route = (page) => {
                                 </div>
                                 `
                                 card += `
-                                <a class="btn-floating waves-effect waves-light btn-large red btn-back"><i class="material-icons circle">arrow_back</i></a>
+                                <a class="btn-floating waves-effect waves-light btn-large blue darken-1 btn-back"><i class="material-icons circle">arrow_back</i></a>
                                 <div class="floating-bottom"> 
-                                <a class="btn-floating btn-large waves-effect waves-light red scroll-to-top"><i class="material-icons">expand_less</i></a>
+                                <a class="btn-floating btn-large waves-effect waves-light blue darken-1 to-top"><i class="material-icons">expand_less</i></a>
                                 </div>
                                 `
                                 root.html(card)
@@ -472,14 +469,10 @@ const route = (page) => {
                                         btn.text('show all squad')
                                     }
                                 })
-
-                                //event when btn back clicked
                                 $('.btn-back').click(() => {
                                     window.location.hash = '#favorite';
                                     route("favorite")
                                 })
-
-                                // event when scroll to top clicked
                                 $('.floating-bottom').click(event => {
                                     event.preventDefault()
                                     $("html, body").animate({
@@ -487,26 +480,23 @@ const route = (page) => {
                                     }, "slow");
                                     return false;
                                 })
-
-                                //hide button scroll when first loaded
-                                $('.scroll-to-top').hide()
-
-                                //event hide/show when scroll
+                                $('.to-top').hide()
                                 window.onscroll = function() {
                                     if (window.scrollY >= 500) {
-                                        $('.scroll-to-top').fadeIn('500')
+                                        $('.to-top').fadeIn('500')
                                     } else {
-                                        $('.scroll-to-top').fadeOut('500')
+                                        $('.to-top').fadeOut('500')
                                     }
                                 }
                                 console.log(data)
-                            } catch (e) {
-                                RouterError(getTeamById, '')
+                            } catch (err) {
+                                console.log(err)
+                                RouterNetwork(getTeamByIdTeam, '')
                             }
                         }
                     }
 
-                getTeamById()
+                getTeamByIdTeam()
             break
             default:
                 console.log("diluar case")      
@@ -555,9 +545,7 @@ const RouterTable = async(params) => {
         premier: 2021,
         seriea: 2019
     }
-
     var newapi = api.replace('[team]', url[params])
-
     try {
         var data = await fetch(newapi, options)
         var json = await data.json()
@@ -568,14 +556,12 @@ const RouterTable = async(params) => {
         var favorite = await getFavorite()
         table.forEach(item => {
             var checked = ''
-
             for (var i in favorite) {
                 if (favorite[i].team_id == item.team.id) {
                     checked = 'checked'
                     break
                 }
             }
-
             content += `<div class="col s12 m7">
                             <p class="header">${item.position+". "+item.team.name}</p>
                             <div class="card horizontal">
@@ -592,7 +578,7 @@ const RouterTable = async(params) => {
                                 data-difference="${item.goalDifference}" 
                                 data-points="${item.points}"  
                                 class="favorite ${checked}"><i class="small material-icons circle">grade</i></a>
-                                <div class="card-image icon-table">
+                                <div class="card-image smallheight">
                                     <img alt="club ${item.team.name}" onerror="this.src='./assets/img/icon/Icon-144.png'" src="./assets/img/icon/Icon-144.png" class="team-icon lazyload" data-src="${item.team.crestUrl.replace(/^http:\/\//i, 'https://')}">
                                 </div>
                                     <div class="row">
@@ -630,15 +616,13 @@ const RouterTable = async(params) => {
                             </div>
                         </div>`
         })
-            console.log("lolos nih")
             content += `          
             <a class="btn-floating waves-effect waves-light btn-large blue darken-1 btn-back"><i class="material-icons circle">arrow_back</i></a>
             <div class="floating-bottom"> 
-            <a class="btn-floating btn-large waves-effect waves-light blue darken-1 scroll-to-top"><i class="material-icons">expand_less</i></a>
+            <a class="btn-floating btn-large waves-effect waves-light blue darken-1 to-top"><i class="material-icons">expand_less</i></a>
             </div>
             `
             document.querySelector('#body-content').innerHTML = content
-            //event when Favorite
             $('.favorite').each(function() {
                 var elem = $(this)
                 var id = elem.data('id')
@@ -693,27 +677,28 @@ const RouterTable = async(params) => {
                 $("html, body").animate({ scrollTop: 0 }, "slow");
                 return false;
             })
-            $('.scroll-to-top').hide()
+            $('.to-top').hide()
             window.onscroll = function() {
                 if (window.scrollY >= 500) {
-                    $('.scroll-to-top').fadeIn('500')
+                    $('.to-top').fadeIn('500')
                 } else {
-                    $('.scroll-to-top').fadeOut('500')
+                    $('.to-top').fadeOut('500')
                 }
             }
     } catch (err) {
-        RouterError(RouterTable, params)
+        console.log(err)
+        RouterNetwork(RouterTable, params)
     }
 }
 
-const RouterError = (callback, params) => {
-    var errMessage = `<div class="s12 l12 center notif">
-    <div><img class="responsive-img signal" src="./assets/img/ui/img-no-network.svg"></div>
+const RouterNetwork = (callback, params) => {
+    var routeMessage = `<div class="s12 l12 center notif">
+    <div><img class="responsive-img network" src="./assets/img/ui/img-no-network.svg"></div>
     <div><h3>Tidak ada koneksi internet</h3></div>
     <div><span>Mohon cek kembali koneksi anda</span></div>
     <div><a href="" class="waves-effect reload"><i class="material-icons font-red right-align">refresh</i></a></di>
     </div>`
-    $('#body-content').html(errMessage)
+    $('#body-content').html(routeMessage)
     $('.reload').click((event) => {
         event.preventDefault()
         callback(params)
@@ -722,23 +707,23 @@ const RouterError = (callback, params) => {
 }
 
 const routeEmptyFavorite = () => {
-    var emptyMess = `
+    var routeEmpty = `
     <div class="s12 l12 center notif">
-    <div><img class="responsive-img signal" src="./assets/img/ui/favorite.png"></div>
+    <div><img class="responsive-img empty" src="./assets/img/ui/favorite.png"></div>
     <div><h4>Belum ada tim favorite</h4></div>
     <div>Ayo tambahkan list team favorite mu</div>
     </div>
     `
-    $('#body-content').html(emptyMess)
+    $('#body-content').html(routeEmpty)
 }
 
 const routeEmptyHome = () => {
-    var emptyHome = `
+    var routeEmpty = `
     <div class="s12 l12 center notif">
-    <div><img class="responsive-img signal" src="./assets/img/ui/favorite.png"></div>
+    <div><img class="responsive-img empty" src="./assets/img/ui/favorite.png"></div>
     <div><h4>Jadwal kosong...</h4></div>
     <div>Tidak ada jadwal pertandingan hari ini</div>
     </div>
     `
-    $('#body-content').html(emptyHome)
+    $('#body-content').html(routeEmpty)
 }
