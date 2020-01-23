@@ -1,10 +1,10 @@
-const CACHE_NAME = "Foot-M.S-v0.0.2";
-
+const CACHE_NAME = "F.M.S";
 const urlToCache = [
-    //index page
+    //navigation
     "./index.html",
-
-    //vendor
+    "./navigation/sidenav.html",
+    "./navigation/topnav.html",
+    //external libray
     "./vendor/materialize/materialize.min.css",
     "./vendor/materialize/materialize.min.js",
     "./vendor/jquery/jquery.min.js",
@@ -12,29 +12,26 @@ const urlToCache = [
     "./vendor/material-icon/font-materialize.woff2",
     "./vendor/idb/idb.js",
     "./vendor/lazyload/lazyload.min.js",
-
     //pages
     "./pages/home.html",
     "./pages/favorite.html",
     "./pages/table.html",
     "./pages/champions.html",
     "./pages/sugestion.html",
-
     //asset custom
     "./assets/css/style.css",
-    "./assets/js/nav.js",
-    "./assets/js/indexDb.js",
+    "./js/nav.js",
+    "./js/indexDb.js",
     //banner
     "./assets/img/liga/ic_bundes.jpg",
     "./assets/img/liga/ic_laliga.jpg",
-    "./assets/img/liga/ic_league1.jpg",
     "./assets/img/liga/ic_premier.jpg",
-    "./assets/img/liga/ic_seriea.jpg",
+    "./assets/img/liga/ic_seri_a.jpg",
     //ui
     "./assets/img/ui/img-no-network.svg",
     "./assets/img/ui/thankyou.png",
     "./assets/img/ui/favorite.png",
-    //icon
+    // //icon
     "./assets/img/icon/Icon-512.png",
     "./assets/img/icon/Icon-192.png",
     "./assets/img/icon/Icon-144.png",
@@ -42,22 +39,24 @@ const urlToCache = [
     "./assets/img/icon/Icon-72.png",
     "./assets/img/icon/Icon-48.png",
     "./assets/img/icon/Icon-36.png",
-    
-    //web info
+    // //web info
     "./manifest.json",
-    //system
-    "./app.js",
+    // //system
+    "./main.js",
+    ];
 
-];
+//Tahap Instalasi
 
 self.addEventListener('install', function(event) {
-    event.waitUntil(
-        caches.open(CACHE_NAME).then(function(cache) {
-            return cache.addAll(urlToCache);
-        })
+ console.log("ServiceWorker: Menginstall..");
+ event.waitUntil(
+    caches.open(CACHE_NAME).then(function(cache) {
+        return cache.addAll(urlToCache);
+    })
     );
 });
 
+//Tahap Aktivasi
 self.addEventListener("activate", function(event) {
     event.waitUntil(
         caches.keys().then(function(cacheNames) {
@@ -68,18 +67,19 @@ self.addEventListener("activate", function(event) {
                         return caches.delete(cacheName);
                     }
                 })
-            );
+                );
         })
-    );
+        );
 });
 
+//Event Fetch
 self.addEventListener('fetch', event => {
     const api_url = 'https://api.football-data.org/v2/'
-    const img = '.jpg'
+    const jpg = '.jpg'
     const svg = '.svg'
     const png = '.png'
 
-    let uri = event.request.url
+    var uri = event.request.url
 
     if (uri.indexOf(api_url) > -1) {
         event.respondWith(
@@ -100,8 +100,8 @@ self.addEventListener('fetch', event => {
                     })
                 })
             })
-        )
-    } else if (uri.indexOf(img) > -1 || uri.indexOf(svg) > -1 || uri.indexOf(png) > -1) {
+            )
+    } else if (uri.indexOf(jpg) > -1 || uri.indexOf(svg) > -1 || uri.indexOf(png) > -1) {
         event.respondWith(
             caches
             .match(event.request, { cacheName: CACHE_NAME })
@@ -116,7 +116,7 @@ self.addEventListener('fetch', event => {
                     return fetch(uri)
                 })
             })
-        )
+            )
     } else {
         event.respondWith(
             caches.match(event.request, {
@@ -124,10 +124,11 @@ self.addEventListener('fetch', event => {
             }).then(response => {
                 return response || fetch(event.request)
             })
-        )
+            )
     }
 })
 
+//Event Push
 self.addEventListener('push', event => {
     let body
     if (event.data) {
@@ -148,5 +149,5 @@ self.addEventListener('push', event => {
 
     event.waitUntil(
         self.registration.showNotification('Jangan lupa menyaksikan team kebanggaan kamu', options)
-    )
+        )
 })

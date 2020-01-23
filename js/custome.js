@@ -744,12 +744,12 @@ const RouterTable = async(params) => {
         var favorite = await getFavorite()
         table.forEach(item => {
             var checked = ''
-            for (var i in favorite) {
-                if (favorite[i].team_id == item.team.id) {
-                    checked = 'checked'
-                    break
-                }
-            }
+            // for (var i in favorite) {
+            //     if (favorite[i].team_id == item.team.id) {
+            //         checked = 'checked'
+            //         break
+            //     }
+            // }
             content += `<div class="col s12 m7">
                             <p class="header">${item.position+". "+item.team.name}</p>
                             <div class="card horizontal">

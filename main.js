@@ -1,32 +1,28 @@
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", function() {
-        navigator.serviceWorker
-            .register("./footms-workbox.js")
-            .then(res => {
-                console.log("app registered")
-            })
-            .catch(function() {
-                console.log("app failed");
-            })
-        navigator.serviceWorker.ready.then(function(){
-            regPushManager()
-        }).catch(()=> console.log("app unready"))
-    })
+        navigator.serviceWorker.register("./sw.js")
+        .then(function() {
+          console.log("Pendaftaran ServiceWorker berhasil");
+      })
+        .catch(function() {
+          console.log("Pendaftaran ServiceWorker gagal");
+      });
+    });
 } else {
     console.log("ServiceWorker belum didukung browser ini.");
 }
 
 if ('Notification' in window) {
-     Notification.requestPermission()
-        .then(res => {
-            if (res === 'granted') {
-                navigator.serviceWorker.ready.then(reg => {
-                    reg.showNotification(title, option2)
-                })
-            } else {
-                console.log("Notifikasi ditolak");
-            }
+   Notification.requestPermission()
+   .then(res => {
+    if (res === 'granted') {
+        navigator.serviceWorker.ready.then(reg => {
+            reg.showNotification(title, option2)
         })
+    } else {
+        console.log("Notifikasi ditolak");
+    }
+})
 } else {
     console.log("Notifikasi tidak didukung browser");
 }
@@ -54,8 +50,8 @@ function regPushManager(){
 function urlBase64ToUint8Array(base64) {
     const padding = '='.repeat((4 - base64.length % 4) % 4);
     var base64 = (base64 + padding)
-        .replace(/-/g, '+')
-        .replace(/_/g, '/');
+    .replace(/-/g, '+')
+    .replace(/_/g, '/');
     const rawData = window.atob(base64);
     const outputArray = new Uint8Array(rawData.length);
     for (let i = 0; i < rawData.length; ++i) {

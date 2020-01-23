@@ -2,6 +2,8 @@ body {
     overscroll-behavior-y: contain;
 }
 
+
+/*section home*/
 .table-match div {
     color: white;
 }
@@ -41,15 +43,11 @@ body {
     right: 1em;
 }
 
-.favorite {
-    position: absolute;
-    top: 1em;
-    right: 1em;
-    color: #c2c2c2;
-    z-index: 1;
+.favorite{
+    float:right;
+    color:silver;
 }
-
-.favorite.checked {
+.favorite.yes {
     color: #ffd700;
 }
 
