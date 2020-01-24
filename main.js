@@ -6,7 +6,10 @@ if ("serviceWorker" in navigator) {
       })
         .catch(function() {
           console.log("Pendaftaran ServiceWorker gagal");
-      });
+      })
+        navigator.serviceWorker.ready.then(function(){
+            regPushManager()
+        }).catch(()=> console.log("ServiceWorker belum siap"))
     });
 } else {
     console.log("ServiceWorker belum didukung browser ini.");
@@ -33,7 +36,7 @@ function regPushManager(){
         navigator.serviceWorker.getRegistration().then(reg => {
             reg.pushManager.subscribe({
                 userVisibleOnly: true,
-                applicationServerKey: urlBase64ToUint8Array('BE11CIpUkCknNQS5Gdsu6jd1c4U-hsmrs1W8Evu5SQaOld_1AiLrx6DKl2dIzBwn2LSfM0M4QfntAy04yUmqhRA')
+                applicationServerKey: urlBase64ToUint8Array('BOh_3uYIKMKRPooX-ocCVXZ1KBscqx_8xMMSDxh-LIi8tgf8njiPBFmpOrwi_GErzTvksbLldf7ajYxjoMhCj5k')
             }).then(subscribe => {
                 console.log('Berhasil melakukan subscribe dengan endpoint: ', subscribe.endpoint);
                 console.log('Berhasil melakukan subscribe dengan p256dh key: ', btoa(String.fromCharCode.apply(
