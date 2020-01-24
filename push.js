@@ -1,21 +1,21 @@
 const webPush = require('web-push')
 
 const vapidKeys = {
-	publicKey: 'BOh_3uYIKMKRPooX-ocCVXZ1KBscqx_8xMMSDxh-LIi8tgf8njiPBFmpOrwi_GErzTvksbLldf7ajYxjoMhCj5k',
-	privateKey: 'fYscKx4KEEqKcpLDzX6mmnT3cwOrLRuORlVgtDXOh1A'
+	publicKey: 'BGMBsRBC6LH0SaqYKpKUNL0GfE1JPxAQrGIZU44Z6JUTidmsM5YOgVWrtHllyFXHwAwU-8VETSXm0S649EBjBGQ',
+	privateKey: 'HwK_-fjkBoHdY_zUroMDcFpq8ZarW23-Egrk7-WvSuI'
 }
 
 webPush.setVapidDetails(
-	'mailto:alzarf77@gmail.com',
+	'mailto:kuroalza@gmail.com',
 	vapidKeys.publicKey,
 	vapidKeys.privateKey
 	)
 
 var pushSubscription = {
-	endpoint: 'ttps://fcm.googleapis.com/fcm/send/cEn5V-8JQUE:APA91bEhm8E3V8VdebHnQL6B7AmCic8QL9ymuJKyFUI5U2E8CW5lLqm9OXU-o8JVa_CrGb3REcvCC3mOcDILKAo-1drS41tudAJm8SHU6b3nieBMJsXxtz1ZXGqw1BoNoMKpCwMZQSt4',
+	endpoint: 'https://fcm.googleapis.com/fcm/send/ec9oQJbGlEo:APA91bHjz7zbg4-IDc-zb7sP-N-BOjHsVk9mn_InUuwaaykwjCyDLnWstfOMckeqTqGVR6YU61qPJXAxtWLv4xhPGtZorykPOzSBsPlAG2rFNDyRtSHV1T_ZKTYEKoT0re_D8GeihmFR',
 	keys: {
-		p256dh: 'BFrgis2PJNx4MsRQSDkSgxI+vkoKO/5OzljMFs3o+vuadDDlDvOdJp/EAu2CmCizdnoRocuS5GVr3SHRjG8G1fs=',
-		auth: 'Bi5MuGkBTHmSYfpjVTXfUg=='
+		p256dh: 'BF07boy93StZcWP/H0CIYXn0QVjNokn1+9fOCigEWC1qljHAOqwOjLzK82t3od4QbD2JzddEA4ILJAtUaAEjm7s=',
+		auth: '4dWuT9YiRXjq9eKP/ZFo1w=='
 	}
 }
 
