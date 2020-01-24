@@ -190,7 +190,7 @@ const loadPage = (page) => {
         <p class="header">${item.position+". "+item.team.name}</p>
         <div class="card horizontal">
         <div class="card-image smallheight" data-id="${item.team.id}">
-        <img alt="club ${item.team.name}" onerror="this.src='./assets/img/icon/Icon-144.png'" src="./assets/img/icon/Icon-144.png" class="team-icon lazyload" data-src="${item.team.crestUrl.replace(/^http:\/\//i, 'https://')}">
+        <img alt="club ${item.team.name}" onerror="this.src='./assets/img/icon/Icon-144.png'" src="./assets/img/icon/Icon-144.png" class="team-logo lazyload" data-src="${item.team.crestUrl.replace(/^http:\/\//i, 'https://')}">
         </div>
         <div class="row" data-id="${item.team.id}">
         <div class="col-lg-12">
@@ -230,7 +230,7 @@ const loadPage = (page) => {
       content += `          
       <a class="btn-floating waves-effect waves-light btn-large blue darken-1 btn-back"><i class="material-icons circle">arrow_back</i></a>
       <div class="floating-bottom"> 
-      <a class="btn-floating btn-large waves-effect waves-light blue darken-1 to-top"><i class="material-icons">expand_less</i></a>
+      <a class="btn-floating btn-large waves-effect waves-light blue darken-1 go-top"><i class="material-icons">expand_less</i></a>
       </div>
       `
 
@@ -243,12 +243,12 @@ const loadPage = (page) => {
         $("html, body").animate({ scrollTop: 0 }, "slow");
         return false;
       })
-      $('.to-top').hide()
+      $('.go-top').hide()
       window.onscroll = function() {
         if (window.scrollY >= 500) {
-          $('.to-top').fadeIn('500')
+          $('.go-top').fadeIn('500')
         } else {
-          $('.to-top').fadeOut('500')
+          $('.go-top').fadeOut('500')
         }
       }
 
