@@ -128,7 +128,6 @@ self.addEventListener('fetch', event => {
     }
 })
 
-//Event Push
 self.addEventListener('push', event => {
     let body
     if (event.data) {

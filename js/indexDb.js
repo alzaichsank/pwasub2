@@ -14,7 +14,7 @@ const setFavorite = (id, data) => {
         const transactionData = upgradeDb.transaction('favorite', 'readwrite')
         const storeData = transactionData.objectStore('favorite')
 
-        let team = {
+        let schedule = {
             schedule_id: data.id,
             schedule_competition: data.stage,
             schedule_winner: data.winner,
@@ -29,7 +29,7 @@ const setFavorite = (id, data) => {
         const isExist = await storeData.get(id)
 
         if (isExist == undefined) {
-            storeData.put(team)
+            storeData.put(schedule)
             return data.hometeam + " vs "+data.awayteam + " ditambah ke favorite"
         } else {
             storeData.delete(id)

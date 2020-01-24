@@ -55,7 +55,7 @@ function getSchedule() {
           homeBody +=`
           <div class="center">
           <div class="col l12 s12 mb12 center" style="padding-bottom: 2px;">      
-          <table class="info-club striped"">
+          <table class="striped"">
           <tr>
           <td class="text-center">${item.competition.name}
           <a href="#!"
@@ -101,6 +101,7 @@ function getSchedule() {
           <tr>
           <td class="text-center">${findCal(item.utcDate)+ ' '+findTime(item.utcDate)}</td>
           </tr>
+          </table>
           </div>`
         })
         $('#body-content').html(homeBody)
@@ -108,7 +109,7 @@ function getSchedule() {
           var elem = $(this)
           var id = elem.data('id')
           var stage = elem.data('stage')
-          var winer = elem.data('winer')
+          var winner = elem.data('winner')
           var status = elem.data('status')
           var hometeam = elem.data('hometeam')
           var awayteam = elem.data('awayteam')
@@ -119,7 +120,7 @@ function getSchedule() {
           var data = {
             id,
             stage,
-            winer,
+            winner,
             status,
             hometeam,
             awayteam,
@@ -160,132 +161,133 @@ function getSchedule() {
 }
 
 function getChampions() {
-  var champions = async() => {
-    try {
-      var fetchjson = await fetch(base_url+"v2/competitions/CL/matches", options)
-      var data = await fetchjson.json()
-      console.log(data);
-      if(data.matches.length > 0){
-        var championsHTML = `<div class="center">
-        <h5 style="padding: 20px 20px 20px 20px;">${data.competition.name}</h5>
-        </div>`
-        var winner = ""
-        var favorite = await getFavorite();
-        data.matches.forEach(item => {
-          var statusfav = "";
-          if (item.score.winner !== null) {
-            winner = item.score.winner;
-          } else {
-            winner = "belum tersedia";
-          }
-          for (var i in favorite) {
-            if (favorite[i].schedule_id == item.id) {
-              statusfav = 'yes';
-              break
-            }
-          }
-          championsHTML +=
-          `
-          <div class="col l12 s12 mb12 center" style="padding-bottom: 2px;">
-          <table class="info-club striped"">
-          <tr>
-          <td class="text-center">${item.stage}
-          <a href="#!"
-          data-id="${item.id}" 
-          data-stage="${item.stage}" 
-          data-winner="${winner}"
-          data-status="${item.status}" 
-          data-hometeam="${item.homeTeam.name}" 
-          data-awayteam="${item.awayTeam.name}"
-          data-homescore="${item.score.fullTime.homeTeam}" 
-          data-awayscore="${item.score.fullTime.awayTeam}" 
-          data-date="${item.utcDate}"
-          class="favorite ${statusfav}"
-          ><i class="small material-icons circle">grade</i></a></td>
-          </tr>
-          <tr>
-          <tr>
-          <td class="text-center"><span class="status-team text-versus">${winner}</span> </td>
-          </tr>
-          <tr>
-          <td>
-          <p class="split-para text-center">
-          <span class="home-team color  text-versus">HOME</span>
-          <span class="progress-team text-versus">${item.status}</span> 
-          <span class="away-team color text-versus">AWAY</span>
-          </p>
-          </td>
-          </tr>
-          <tr>
-          <tr>
-          <td>
-          <p class="split-para text-center">
-          <span class="home-team  text-versus">${item.homeTeam.name}</span>
-          <span class="vs-team text-versus"> VS </span> 
-          <span class="away-team text-versus">${item.awayTeam.name}</span>
-          </p>
-          <p class="split-para text-center">
-          <span class="home-team  text-versus">${item.score.fullTime.homeTeam}</span>
-          <span class="away-team text-versus">${item.score.fullTime.awayTeam}</span>
-          </p>
-          </td>
-          </tr>
-          <tr>
-          <td class="text-center">${findCal(item.utcDate)+ ' '+findTime(item.utcDate)}</td>
-          </tr>
-          </div>`
-        })
-        $('#body-content').html(championsHTML)
-        $('.favorite').each(function() {
-          var elem = $(this)
-          var id = elem.data('id')
-          var stage = elem.data('stage')
-          var winer = elem.data('winer')
-          var status = elem.data('status')
-          var hometeam = elem.data('hometeam')
-          var awayteam = elem.data('awayteam')
-          var homescore = elem.data('homescore')
-          var awayscore = elem.data('awayscore')
-          var date = elem.data('date')
-
-          var data = {
-            id,
-            stage,
-            winer,
-            status,
-            hometeam,
-            awayteam,
-            homescore,
-            awayscore,
-            date
-          }
-
-          elem.click(function(e) {
-            e.preventDefault()
-            setFavorite(id, data)
-            var isFavorite = elem.hasClass('yes')
-
-            var message = ''
-            if (!isFavorite) {
-              message = data.hometeam + " vs "+data.awayteam + " ditambah ke favorite"
-              elem.addClass('yes')
-            } else {
-              message = data.hometeam + " vs "+data.awayteam + " dihapus dari favorite"
-              elem.removeClass('yes')
-            }
-
-            M.toast({ html: message, classes: 'rounded', displayLength: 1000 });
-
-          })
-        })
-      }else{
-        generalLog("kosong");
-        EmptyHome()
+ var champions = async() => {
+  try {
+   var fetchjson = await fetch(base_url+"v2/competitions/CL/matches", options)
+   var data = await fetchjson.json()
+   console.log(data);
+   if(data.matches.length > 0){
+    var championsHTML = `<div class="center">
+    <h5 style="padding: 20px 20px 20px 20px;">${data.competition.name}</h5>
+    </div>`
+    var winner = ""
+    var favorite = await getFavorite();
+    data.matches.forEach(item => {
+      var statusfav = "";
+      if (item.score.winner !== null) {
+        winner = item.score.winner;
+      } else {
+        winner = "belum tersedia";
       }
-    } catch(err) {
-      error(err);
-      ErrorNetwork()
-    }
+      for (var i in favorite) {
+        if (favorite[i].schedule_id == item.id) {
+          statusfav = 'yes';
+          break
+        }
+      }
+      championsHTML +=
+      `
+      <div class="col l12 s12 mb12 center" style="padding-bottom: 2px;">
+      <table class="striped"">
+      <tr>
+      <td class="text-center">${item.stage}
+      <a href="#!"
+      data-id="${item.id}" 
+      data-stage="${item.stage}" 
+      data-winner="${winner}"
+      data-status="${item.status}" 
+      data-hometeam="${item.homeTeam.name}" 
+      data-awayteam="${item.awayTeam.name}"
+      data-homescore="${item.score.fullTime.homeTeam}" 
+      data-awayscore="${item.score.fullTime.awayTeam}" 
+      data-date="${item.utcDate}"
+      class="favorite ${statusfav}"
+      ><i class="small material-icons circle">grade</i></a></td>
+      </tr>
+      <tr>
+      <tr>
+      <td class="text-center"><span class="status-team text-versus">${winner}</span> </td>
+      </tr>
+      <tr>
+      <td>
+      <p class="split-para text-center">
+      <span class="home-team color  text-versus">HOME</span>
+      <span class="progress-team text-versus">${item.status}</span> 
+      <span class="away-team color text-versus">AWAY</span>
+      </p>
+      </td>
+      </tr>
+      <tr>
+      <tr>
+      <td>
+      <p class="split-para text-center">
+      <span class="home-team  text-versus">${item.homeTeam.name}</span>
+      <span class="vs-team text-versus"> VS </span> 
+      <span class="away-team text-versus">${item.awayTeam.name}</span>
+      </p>
+      <p class="split-para text-center">
+      <span class="home-team  text-versus">${item.score.fullTime.homeTeam}</span>
+      <span class="away-team text-versus">${item.score.fullTime.awayTeam}</span>
+      </p>
+      </td>
+      </tr>
+      <tr>
+      <td class="text-center">${findCal(item.utcDate)+ ' '+findTime(item.utcDate)}</td>
+      </tr>
+      </table>
+      </div>`
+    })
+    $('#body-content').html(championsHTML)
+    $('.favorite').each(function() {
+      var elem = $(this)
+      var id = elem.data('id')
+      var stage = elem.data('stage')
+      var winner = elem.data('winner')
+      var status = elem.data('status')
+      var hometeam = elem.data('hometeam')
+      var awayteam = elem.data('awayteam')
+      var homescore = elem.data('homescore')
+      var awayscore = elem.data('awayscore')
+      var date = elem.data('date')
+
+      var data = {
+        id,
+        stage,
+        winner,
+        status,
+        hometeam,
+        awayteam,
+        homescore,
+        awayscore,
+        date
+      }
+
+      elem.click(function(e) {
+        e.preventDefault()
+        setFavorite(id, data)
+        var isFavorite = elem.hasClass('yes')
+
+        var message = ''
+        if (!isFavorite) {
+          message = data.hometeam + " vs "+data.awayteam + " ditambah ke favorite"
+          elem.addClass('yes')
+        } else {
+          message = data.hometeam + " vs "+data.awayteam + " dihapus dari favorite"
+          elem.removeClass('yes')
+        }
+
+        M.toast({ html: message, classes: 'rounded', displayLength: 1000 });
+
+      })
+    })
+  }else{
+    generalLog("kosong");
+    EmptyHome()
+  }
+  } catch(err) {
+    error(err);
+    ErrorNetwork()
+  }
   }
   champions()
 }
@@ -295,11 +297,12 @@ function getFavoriteData() {
     if (res.length == 0) {
       EmptyFavorite();
     }else{
-      var favoriteHTML = `<div><center><h4>Tim Favorite</h4></center></div>`
+      console.log(res);
+      var favoriteHTML = `<div><center><h4>Jadwal Anda</h4></center></div>`
       res.forEach(item => {
         favoriteHTML += `
-        <div class="col l12 s12 mb12 center" style="padding-bottom: 2px;">
-        <table class="info-club striped"">
+        <div class="col l12 s12 mb12 center savedschedule" style="padding-bottom: 2px;">
+        <table class="striped"">
         <tr>
         <td class="text-center">${item.schedule_competition}
         <a href="#!"
@@ -345,10 +348,62 @@ function getFavoriteData() {
         <tr>
         <td class="text-center">${findCal(item.schedule_date)+ ' '+findTime(item.schedule_date)}</td>
         </tr>
+        </table>
         </div>`
       })
       $('#body-content').html(favoriteHTML)
-      // favorite()
+      $('.favorite').each(function() {
+        var elem = $(this)
+        var id = elem.data('id')
+        var stage = elem.data('stage')
+        var winner = elem.data('winner')
+        var status = elem.data('status')
+        var hometeam = elem.data('hometeam')
+        var awayteam = elem.data('awayteam')
+        var homescore = elem.data('homescore')
+        var awayscore = elem.data('awayscore')
+        var date = elem.data('date')
+
+        var data = {
+          id,
+          stage,
+          winner,
+          status,
+          hometeam,
+          awayteam,
+          homescore,
+          awayscore,
+          date
+        }
+
+        elem.click(function(e) {
+          e.preventDefault()
+          var isSaved = elem.hasClass('yes')
+          if (!isSaved) {
+            elem.addClass('yes')
+          } else {
+            var toastHTML = '<span>dihapus dari favorite</span><button class="btn-flat toast-action">Undo</button>';
+            M.toast({
+              html: toastHTML,
+              displayLength: '3000'
+            });
+            var card = elem.closest('div.savedschedule')
+            card.hide("slow")
+            var doRemove = setTimeout(() => {
+              setFavorite(id, data)
+              card.remove()
+              if ($('div.savedschedule').length == 0) {
+                EmptyFavorite()
+              }
+            }, 3000)
+            $('.toast-action').click(() => {
+              card.show('slow')
+              clearTimeout(doRemove)
+              M.Toast.dismissAll();
+            })
+          }
+        })
+      })
     }
   })
 }
@@ -375,12 +430,12 @@ const EmptyHome = () => {
 }
 
 const EmptyFavorite = () => {
-    var message = `
-    <div class="s12 l12 center notif">
-    <div><img class="responsive-img empty" src="./assets/img/ui/favorite.png"></div>
-    <div><h4>Belum ada tim favorite</h4></div>
-    <div>Ayo tambahkan list team favorite mu</div>
-    </div>
-    `
-    $('#body-content').html(message)
+  var message = `
+  <div class="s12 l12 center notif">
+  <div><img class="responsive-img empty" src="./assets/img/ui/favorite.png"></div>
+  <div><h4>Belum ada tim favorite</h4></div>
+  <div>Ayo tambahkan list team favorite mu</div>
+  </div>
+  `
+  $('#body-content').html(message)
 }

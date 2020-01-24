@@ -13,8 +13,8 @@ if ("serviceWorker" in navigator) {
 }
 
 if ('Notification' in window) {
-   Notification.requestPermission()
-   .then(res => {
+ Notification.requestPermission()
+ .then(res => {
     if (res === 'granted') {
         navigator.serviceWorker.ready.then(reg => {
             reg.showNotification(title, option2)
@@ -63,33 +63,8 @@ function urlBase64ToUint8Array(base64) {
 const dt = new Date()
 
 let jam = dt.getHours()
-let judul
-let isi
-
-if(jam < 5){
-    judul = 'Selamat pagi menanti fajar'
-    isi = "Mari mulai hari ini dengan bersyukur"
-}else if(jam < 10){
-    judul = 'Selamat pagi'
-    isi = 'Mari mulai aktifitas dengan semangata'
-}else if(jam < 15){
-    judul = 'Selamat siang'
-    isi = "Sambil pantau jadwal, jangan lupa makan ya"
-}else if(jam < 19){
-    judul = 'Selamat Sore'
-    isi = "Mari akhiri sore hari ini dengan bersantai"
-}else if(jam < 21){
-    judul = 'Selamat Malam'
-    isi = "Mari istirahatkan tubuh ini"
-}else if(jam < 23){
-    judul = 'Mari Tidur'
-    isi = "Tubuh ini butuh istirahat"
-}else{
-    judul = 'Mari Tidur'
-    isi = "Tubuh ini butuh istirahat"
-}
-
-judul = judul + ', Football Mania'
+var judul = 'Selamat datang footaball mania' ;
+var isi = "silahkan cek jadwal terkini";
 
 const title = judul
 const option2 = {
