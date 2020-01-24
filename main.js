@@ -1,4 +1,16 @@
-if ("serviceWorker" in navigator) {
+var title = 'Selamat datang footaball mania' ;
+var isi = "silahkan cek jadwal terkini";
+var optiondata = {
+    isi,
+    icon: './assets/img/icon/Icon-512.png',
+    badge: './assets/img/icon/Icon-512.png',
+    tag: 'greetings'
+};
+
+
+if (!('serviceWorker' in navigator)) {
+  console.log("Service worker tidak didukung browser ini.");
+} else {
     window.addEventListener("load", function() {
         navigator.serviceWorker.register("./sw.js")
         .then(function() {
@@ -8,29 +20,29 @@ if ("serviceWorker" in navigator) {
           console.log("Pendaftaran ServiceWorker gagal");
       })
         navigator.serviceWorker.ready.then(function(){
-            regPushManager()
+            regPushManager();
+            requestPermission();
         }).catch(()=> console.log("ServiceWorker belum siap"))
     });
-} else {
-    console.log("ServiceWorker belum didukung browser ini.");
 }
+function requestPermission() {
+    if ('Notification' in window) {
+      Notification.requestPermission().then(function (result) {
+        if (result === "granted") {
+            navigator.serviceWorker.getRegistration().then(function(reg) {
+                reg.showNotification(title, optiondata)
+            });
+        } else if (result === "denied") {
+          console.log("Fitur notifikasi tidak diijinkan.");
 
-if ('Notification' in window) {
- Notification.requestPermission()
- .then(res => {
-    if (res === 'granted') {
-        navigator.serviceWorker.ready.then(reg => {
-            reg.showNotification(title, option2)
-        })
-    } else {
-        console.log("Notifikasi ditolak");
-    }
-})
-} else {
-    console.log("Notifikasi tidak didukung browser");
+      }else if (result === "default") {
+          console.error("Pengguna menutup kotak dialog permintaan ijin.");
+      }
+
+
+  });
+  }
 }
-
-//register push service google cloud messenging
 function regPushManager(){
     if ('PushManager' in window) {
         navigator.serviceWorker.getRegistration().then(reg => {
@@ -61,18 +73,4 @@ function urlBase64ToUint8Array(base64) {
         outputArray[i] = rawData.charCodeAt(i);
     }
     return outputArray;
-}
-
-const dt = new Date()
-
-let jam = dt.getHours()
-var judul = 'Selamat datang footaball mania' ;
-var isi = "silahkan cek jadwal terkini";
-
-const title = judul
-const option2 = {
-    isi,
-    icon: './assets/img/icon/Icon-512.png',
-    badge: './assets/img/icon/Icon-512.png',
-    tag: 'greetings'
 }

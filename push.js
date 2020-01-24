@@ -12,14 +12,14 @@ webPush.setVapidDetails(
 	)
 
 var pushSubscription = {
-	endpoint: 'https://fcm.googleapis.com/fcm/send/ec9oQJbGlEo:APA91bHjz7zbg4-IDc-zb7sP-N-BOjHsVk9mn_InUuwaaykwjCyDLnWstfOMckeqTqGVR6YU61qPJXAxtWLv4xhPGtZorykPOzSBsPlAG2rFNDyRtSHV1T_ZKTYEKoT0re_D8GeihmFR',
+	endpoint: 'https://fcm.googleapis.com/fcm/send/e1Q7uu1ICsg:APA91bGo6utTd7xQI8Zgldkr9_OZsr5yXrPThiRFbSUn8kahIwT9G0uTi0fEkLRWg6mJSrseOArA_c_6Xcc6WbGsfvhrcPqJebH5OKGyRQVfLE8NsEYd75SfQpQ3nA5gSWwmkPFOwhHz',
 	keys: {
-		p256dh: 'BF07boy93StZcWP/H0CIYXn0QVjNokn1+9fOCigEWC1qljHAOqwOjLzK82t3od4QbD2JzddEA4ILJAtUaAEjm7s=',
-		auth: '4dWuT9YiRXjq9eKP/ZFo1w=='
+		p256dh: 'BJeRIX6E0vA9ygHFsAx62TlVasnPPIS+2VeJwFCzeY1waLnwkHFzYvlRqePxsylODV5I5Q9LvO9IorRaTcwkw+U=',
+		auth: 'jXosi+izbS68a0kOaeCI+Q=='
 	}
 }
 
-var payload = "Jadwal tebaru sudah ada , Ayo cek sekarang!!"
+var payload = "cek jadwal yuk , supaya tidak bosan~"
 
 var options = {
 	gcmAPIKey: '807511394615',

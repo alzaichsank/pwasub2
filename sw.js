@@ -31,7 +31,7 @@ const urlToCache = [
     "./assets/img/ui/img-no-network.svg",
     "./assets/img/ui/thankyou.png",
     "./assets/img/ui/favorite.png",
-    // //icon
+    //icon
     "./assets/img/icon/Icon-512.png",
     "./assets/img/icon/Icon-192.png",
     "./assets/img/icon/Icon-144.png",
@@ -74,14 +74,14 @@ self.addEventListener("activate", function(event) {
 
 //Event Fetch
 self.addEventListener('fetch', event => {
-    const api_url = 'https://api.football-data.org/v2/'
-    const jpg = '.jpg'
-    const svg = '.svg'
-    const png = '.png'
+    var base_url = 'https://api.football-data.org/v2/';
+    var jpg = '.jpg';
+    var svg = '.svg';
+    var png = '.png';
 
     var uri = event.request.url
 
-    if (uri.indexOf(api_url) > -1) {
+    if (uri.indexOf(base_url) > -1) {
         event.respondWith(
             caches
             .match(event.request, { cacheName: CACHE_NAME })
@@ -126,18 +126,20 @@ self.addEventListener('fetch', event => {
             })
             )
     }
-})
+});
 
 self.addEventListener('push', event => {
-    let body
+
+    console.log("masuk pak eko");
+    var body;
     if (event.data) {
-        body = event.data.text()
+        body = event.data.text();
     } else {
-        body = 'Pesan kosong'
+        body =  'Push message no payload';
     }
 
-    const options = {
-        body,
+    var options = {
+        body: body,
         icon: '/img/Icon-512x512.png',
         vibrate: [100, 50, 100],
         data: {
@@ -147,6 +149,6 @@ self.addEventListener('push', event => {
     }
 
     event.waitUntil(
-        self.registration.showNotification('Jangan lupa menyaksikan team kebanggaan kamu', options)
-        )
-})
+        self.registration.showNotification('Lagi gabut?', options)
+        );
+});
